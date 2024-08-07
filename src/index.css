@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border list-none p-0 m-0;
+  }
+
+  body {
+    @apply min-h-screen bg-gray-100;
+  }
+}
+
+@layer components {
+  .max-base {
+    @apply max-w-3xl mx-auto my-0;
+  }
+}
