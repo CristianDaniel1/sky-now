@@ -1,7 +1,12 @@
-export const findIcon = (icons: string[], icon: string) => {
-  const iconWeather = icons.find(img => img.includes(icon));
+interface WeatherIcons {
+  id: string;
+  img: string;
+}
 
-  return iconWeather;
+export const findIcon = (icons: WeatherIcons[], icon: string) => {
+  const iconWeather = icons.find(img => img.id === icon);
+
+  return iconWeather?.img;
 };
 
 export const getDate = (dateDt: number) => {

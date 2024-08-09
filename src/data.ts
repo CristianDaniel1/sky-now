@@ -66,24 +66,78 @@ export const visibility = {
 };
 
 export const weatherIcons = [
-  day1,
-  night1,
-  day2,
-  night2,
-  day3,
-  night3,
-  day4,
-  night4,
-  day9,
-  night9,
-  day10,
-  night10,
-  day11,
-  night11,
-  day13,
-  night13,
-  day50,
-  night50,
+  {
+    id: '01d',
+    img: day1,
+  },
+  {
+    id: '01n',
+    img: night1,
+  },
+  {
+    id: '02d',
+    img: day2,
+  },
+  {
+    id: '02n',
+    img: night2,
+  },
+  {
+    id: '03d',
+    img: day3,
+  },
+  {
+    id: '03n',
+    img: night3,
+  },
+  {
+    id: '04d',
+    img: day4,
+  },
+  {
+    id: '04n',
+    img: night4,
+  },
+  {
+    id: '09d',
+    img: day9,
+  },
+  {
+    id: '09n',
+    img: night9,
+  },
+  {
+    id: '10d',
+    img: day10,
+  },
+  {
+    id: '10n',
+    img: night10,
+  },
+  {
+    id: '11d',
+    img: day11,
+  },
+  {
+    id: '11n',
+    img: night11,
+  },
+  {
+    id: '13d',
+    img: day13,
+  },
+  {
+    id: '13n',
+    img: night13,
+  },
+  {
+    id: '50d',
+    img: day50,
+  },
+  {
+    id: '50n',
+    img: night50,
+  },
 ];
 
 export const DEFAULT_COORDS = {
