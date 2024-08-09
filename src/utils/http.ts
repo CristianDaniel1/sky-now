@@ -46,7 +46,7 @@ interface FetchGeo {
 
 export async function fetchGeo({ signal, local }: FetchGeo) {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${local}&limit=5&appid=${
+    `https://api.openweathermap.org/geo/1.0/direct?q=${local}&limit=5&appid=${
       import.meta.env.VITE_API_KEY
     }`,
     { signal }
