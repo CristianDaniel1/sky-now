@@ -22,26 +22,27 @@ export const Header = () => {
   }
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="flex items-center justify-between max-base lg:max-w-5xl px-4 py-2 sm:px-8 sm:py-6">
-        <h1 className="font-bold text-2xl text-primary flex items-center gap-2">
+    <header className="bg-secundary shadow-sm">
+      <div className="flex items-center justify-between max-base lg:max-w-5xl px-4 py-3 sm:px-8 sm:py-6 flex-wrap gap-4">
+        <h1 className="font-bold text-xl sm:text-2xl text-primary flex items-center gap-2">
           <img
             src={logoImg}
             alt="Logo de SkyNow, uma nuvem com óculos de sol"
             width={40}
             height={40}
+            className="w-9 sm:w-10"
           />
-          <div className="">
-            Sky<span className="text-orange-500">Now</span>
+          <div>
+            Sky<span className="text-orange-400">Now</span>
           </div>
         </h1>
         <SearchBar />
         <Button
-          className="rounded-full flex gap-2 items-center px-2 py-2 md:px-6 md:py-3"
+          className="rounded-full flex gap-2 items-center px-2 py-2 md:px-6 md:py-3 order-2"
           onClick={handleGetPosition}
         >
           <GpsIcon />
-          <div className="hidden sm:block">Local Atual</div>
+          <div className="hidden md:block">Local Atual</div>
         </Button>
       </div>
     </header>

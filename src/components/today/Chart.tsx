@@ -41,8 +41,8 @@ export const Chart = () => {
             width={400}
             height={400}
             data={todayHours}
-            className="text-slate-400 text-sm font-medium"
-            margin={{ top: 20, right: 30, left: 5, bottom: 5 }}
+            className="text-slate-400 sm:text-sm text-xs font-medium"
+            margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
           >
             <YAxis domain={['auto', 'dataMax + 4']} stroke="currentColor" />
             <XAxis dataKey="strHours" stroke="currentColor" />

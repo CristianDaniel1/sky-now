@@ -12,7 +12,9 @@ interface FetchWeather {
 
 export async function fetchCurrentWeather({ lat, lon, signal }: FetchWeather) {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=pt_br
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
+      import.meta.env.VITE_API_KEY
+    }&units=metric&lang=pt_br
   `,
     { signal }
   );
@@ -25,7 +27,9 @@ export async function fetchCurrentWeather({ lat, lon, signal }: FetchWeather) {
 
 export async function fetchForecast({ lat, lon, signal }: FetchWeather) {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=pt_br`,
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${
+      import.meta.env.VITE_API_KEY
+    }&units=metric&lang=pt_br`,
     { signal }
   );
 
@@ -42,7 +46,9 @@ interface FetchGeo {
 
 export async function fetchGeo({ signal, local }: FetchGeo) {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${local}&limit=5&appid=${key}`,
+    `http://api.openweathermap.org/geo/1.0/direct?q=${local}&limit=5&appid=${
+      import.meta.env.VITE_API_KEY
+    }`,
     { signal }
   );
 

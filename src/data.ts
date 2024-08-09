@@ -45,25 +45,6 @@ export const links = [
   },
 ];
 
-// export const imgIcons = {
-//   thermometer: {
-//     img: thermometerImg,
-//     alt: 'Icone de termometro',
-//   },
-//   humidity: {
-//     img: humidityImg,
-//     alt: 'Icone de umidade',
-//   },
-//   wind: {
-//     img: windImg,
-//     alt: 'Icone do vento',
-//   },
-//   visibility: {
-//     img: visibilityImg,
-//     alt: 'Icone de olhos',
-//   },
-// };
-
 export const thermometer = {
   img: thermometerImg,
   alt: 'Icone de termometro',
@@ -104,3 +85,14 @@ export const weatherIcons = [
   day50,
   night50,
 ];
+
+export const DEFAULT_COORDS = {
+  lat: 19.4326296,
+  lon: -99.1331785,
+};
+
+export const DEFAULT_LOCALE = {
+  city: 'Mexico City',
+  state: '',
+  country: 'MX',
+};

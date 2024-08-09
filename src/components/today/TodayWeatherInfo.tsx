@@ -16,15 +16,15 @@ interface TodayWeatherInfoProps {
 
 export const TodayWeatherInfo = (props: TodayWeatherInfoProps) => {
   return (
-    <div className="sm:w-1/3 flex items-center justify-center gap-4 sm:block">
+    <div className="md:w-1/3 flex items-center justify-around gap-4 md:block pt-4">
       <img
         src={props.icon}
         alt="Clima de hoje"
         width={150}
         height={150}
-        className="sm:ml-10 sm:mt-2 w-28 sm:w-[150px]"
+        className="w-28 sm:w-[150px] mx-auto"
       />
-      <div className="border border-gray-200 bg-slate-50 p-4 rounded-md mt-8 mb-4">
+      <div className="border border-gray-200 bg-color-slate p-4 rounded-md mt-8 mb-4 w-2/3 xs:w-1/2 md:w-auto text-sm sm:text-base flex flex-col gap-2">
         <Humidity humidityValue={props.humidity} />
         <Wind windValue={props.wind} />
         <Visibility visibilityValue={props.visibility} />

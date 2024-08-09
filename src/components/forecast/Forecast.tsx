@@ -25,14 +25,14 @@ export const Forecast = () => {
 
   return (
     <section className="pt-4 pb-8">
-      <h2 className="text-2xl sm:text-3xl text-sky-600 font-light px-6 py-6 flex items-center gap-2">
+      <h2 className="text-2xl sm:text-3xl text-sky-600 font-light px-4 sm:px-6 py-6 flex items-center gap-2">
         <CalendarIcon />
-        <div>
+        <div className="text-balance">
           <span className="font-medium">Previsão</span> - Próximos dias
         </div>
       </h2>
       {data && (
-        <ol className="grid grid-cols-6 grid-rows-2 gap-4">
+        <ol className="grid grid-cols-6 grid-rows-none lg:grid-rows-2 gap-4 justify-center">
           {nextDays.map((weather, index) => {
             return (
               <ForecastItem
@@ -47,7 +47,7 @@ export const Forecast = () => {
       {isPending && (
         <LoadingMessage
           message="Espere..."
-          className="bg-white rounded-md p-6"
+          className="bg-secundary rounded-md p-6"
         />
       )}
       {isError && (

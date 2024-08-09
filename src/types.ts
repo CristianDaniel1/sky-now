@@ -85,3 +85,9 @@ export type Location = {
 };
 
 export type Locations = Location[];
+
+export type CurrentLocale = {
+  city: string;
+  state: string;
+  country: string;
+};

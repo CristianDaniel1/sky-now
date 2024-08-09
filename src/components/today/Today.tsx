@@ -1,12 +1,15 @@
+import { useCoordsStore } from '../../store/weatherStore.ts';
 import { useCurrentWeather } from '../../hooks/useCurrentWeather.ts';
-import { thermometer, weatherIcons } from '../../data.ts';
-import { findIcon, getCurrentDate } from '../../utils/helpers.ts';
+
 import { Chart } from './Chart.tsx';
 import { LoadingMessage } from '../LoadingMessage.tsx';
 import { ErrorMessage } from '../ErrorMessage.tsx';
 import { CalendarIcon } from '../icons/CalendarIcon.tsx';
-import { useCoordsStore } from '../../store/weatherStore.ts';
 import { TodayWeatherInfo } from './TodayWeatherInfo.tsx';
+import { CurrentLocale } from '../CurrentLocale.tsx';
+
+import { findIcon, getCurrentDate } from '../../utils/helpers.ts';
+import { thermometer, weatherIcons } from '../../data.ts';
 
 export const Today = () => {
   const coords = useCoordsStore(state => state.coords);
@@ -26,8 +29,8 @@ export const Today = () => {
 
     content = (
       <>
-        <div className="sm:w-2/3">
-          <h2 className="text-2xl text-center sm:text-left sm:text-4xl font-medium text-orange-600 pb-4 sm:pb-8">
+        <div className="md:w-2/3">
+          <h2 className="text-2xl text-center sm:text-left sm:text-4xl font-medium text-orange-400 pb-4 sm:pb-8">
             {date[0].toUpperCase() + date.slice(1)}
           </h2>
           <div className="text-2xl sm:text-4xl flex font-bold text-primary gap-2 items-center justify-center sm:justify-start">
@@ -43,7 +46,7 @@ export const Today = () => {
               className="w-10 sm:w-14"
             />
           </div>
-          <div className="h-56 sm:h-72 bg-slate-50 p-1 sm:p-4 mt-10">
+          <div className="h-56 sm:h-80 bg-color-slate p-1 sm:p-4 mt-10 rounded border border-gray-200">
             <Chart />
           </div>
         </div>
@@ -62,13 +65,16 @@ export const Today = () => {
 
   return (
     <section className="my-4">
-      <h2 className="text-2xl sm:text-3xl text-sky-600 font-light px-4 sm:px-6 py-6 flex items-center gap-2">
-        <CalendarIcon />
-        <div>
-          <span className="font-medium">Tempo</span> - Hoje
-        </div>
-      </h2>
-      <div className="bg-white px-5 py-8 sm:p-10 rounded-xl shadow sm:flex gap-10 min-h-96">
+      <div className="flex justify-between items-center flex-wrap pt-4">
+        <h2 className="text-2xl sm:text-3xl text-sky-600 font-light px-4 sm:px-6 py-3 sm:py-6 flex items-center gap-2">
+          <CalendarIcon />
+          <div>
+            <span className="font-medium">Tempo</span> - Hoje
+          </div>
+        </h2>
+        <CurrentLocale />
+      </div>
+      <div className="bg-secundary px-5 py-8 sm:p-10 rounded-xl shadow md:flex gap-10 min-h-96">
         {isPending && (
           <LoadingMessage message="Carrengando dados do tempo..." />
         )}

@@ -21,13 +21,13 @@ export const ForecastItem = ({ weatherInfo, order }: ForecastItemProps) => {
 
   return (
     <li
-      className={`bg-white shadow p-6 rounded-xl ${
-        isBig ? 'col-span-3 px-10' : 'col-span-2'
-      }`}
+      className={`bg-secundary shadow p-6 rounded-xl ${
+        isBig ? 'lg:col-span-3 md:px-10' : 'lg:col-span-2'
+      } col-start-1 xs:col-start-2 col-span-full xs:col-span-4 sm:col-span-3`}
     >
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="pb-4 text-xl font-light">
+          <h3 className="pb-6 text-xl font-light text-balance">
             {(order === 0 && 'Amanhã - ') ||
               (order === 1 && 'Depois de amanhã - ') ||
               ''}
@@ -35,8 +35,8 @@ export const ForecastItem = ({ weatherInfo, order }: ForecastItemProps) => {
           </h3>
           <div
             className={`${
-              isBig ? 'text-4xl' : 'text-3xl'
-            } font-bold text-primary flex gap-2 items-center mb-4`}
+              isBig ? 'md:text-4xl' : ''
+            } font-bold text-primary flex gap-2 items-center mb-4 text-2xl sm:text-3xl`}
           >
             {temp.toFixed(1)}°C
             <img
@@ -55,7 +55,7 @@ export const ForecastItem = ({ weatherInfo, order }: ForecastItemProps) => {
           alt="clima atual"
           width={60}
           height={60}
-          className={`${isBig ? 'w-20' : ''}`}
+          className={`${isBig ? 'md:w-20' : 'md:w-[60px]'} w-20`}
         />
       </div>
       <div className="flex items-center justify-between">

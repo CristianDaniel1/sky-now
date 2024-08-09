@@ -2,10 +2,10 @@ import { links } from '../data.ts';
 
 export const Footer = () => {
   return (
-    <footer className="bg-white border-t">
+    <footer className="bg-secundary border-t">
       <p className="text-center py-8 font-medium">
         Desenvolvido por{' '}
-        <span className="text-orange-700">Cristian Daniel</span>
+        <span className="text-orange-600">Cristian Daniel</span>
       </p>
       <ul className="flex gap-6 justify-center pb-10">
         {links.map(link => (

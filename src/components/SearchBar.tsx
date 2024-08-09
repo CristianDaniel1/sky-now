@@ -6,6 +6,7 @@ import { ErrorMessage } from './ErrorMessage.tsx';
 import { SuggestionsList } from './SuggestionsList.tsx';
 import { SuggestionsItem } from './SuggestionsItem.tsx';
 import { MagnifyingGlassIcon } from './icons/MagnifyingGlassIcon.tsx';
+import { type CurrentLocale } from '../types.ts';
 
 const classes =
   'bg-white absolute top-full left-0 mt-1 p-4 rounded border-2 border-slate-200';
@@ -16,6 +17,7 @@ export const SearchBar = () => {
 
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const changeCoords = useCoordsStore(state => state.changeCoords);
+  const changeLocale = useCoordsStore(state => state.changeLocale);
 
   const { data, isFetching, isError, error } = useGeo(searchTerm);
 
@@ -35,26 +37,38 @@ export const SearchBar = () => {
       ele => ele.name.toLowerCase().trim() === searchTerm?.toLowerCase().trim()
     );
 
-    if (local) handleChangeCoords(local.lat, local.lon);
+    if (local) {
+      const { name: city, state, country } = local;
+      handleChangeCoords(local.lat, local.lon, { city, state, country });
+    }
 
     setSearchTerm(undefined);
     event.currentTarget.reset();
   }
 
-  function handleChangeCoords(lat: number, lon: number) {
+  function handleChangeCoords(lat: number, lon: number, locale: CurrentLocale) {
+    const { city, state, country } = locale;
+    console.log(locale);
+
     changeCoords(lat, lon);
+    changeLocale({ city, state, country });
     setSearchTerm(undefined);
+
     resetForm.current!.reset();
   }
 
   return (
-    <form onSubmit={handleSubmit} className="relative" ref={resetForm}>
-      <div className="pl-4 flex gap-2 items-center bg-slate-100 rounded-full text-sky-800 outline outline-slate-100 focus-within:outline focus-within:outline-gray-200">
-        <MagnifyingGlassIcon />
+    <form
+      onSubmit={handleSubmit}
+      className="relative sm:ml-0 order-3 sm:order-1 w-full sm:w-auto"
+      ref={resetForm}
+    >
+      <MagnifyingGlassIcon className="text-sky-800 z-10 absolute top-1/2 -translate-y-1/2 left-2" />
+      <div className="flex gap-2 items-center bg-slate-100 rounded-full text-sky-800 outline outline-slate-100 focus-within:outline focus-within:outline-gray-200">
         <input
           type="search"
           placeholder="Pesquisar"
-          className="w-2 md:w-80 block bg-transparent outline-none md:pr-4 py-1 md:py-2"
+          className="w-full sm:w-80 block bg-transparent outline-none py-1 px-4 pl-8 sm:py-2 z-20"
           onChange={handleChange}
         />
         {isFetching && <div className={classes}>...</div>}
@@ -71,7 +85,7 @@ export const SearchBar = () => {
             {data.map(local => (
               <SuggestionsItem
                 infoLocal={local}
-                key={local.country + local.name}
+                key={local.lat + local.lon}
                 onChangeCoords={handleChangeCoords}
               />
             ))}

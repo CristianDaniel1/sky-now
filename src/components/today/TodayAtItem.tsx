@@ -15,9 +15,11 @@ export const TodayAtItem = ({ weatherInfo }: ForecastItemProps) => {
   const { hours } = getDate(weatherInfo.dt);
 
   return (
-    <li className="bg-white rounded-lg p-6 flex flex-col items-center gap-2 shadow">
+    <li className="bg-secundary rounded-lg p-6 flex flex-col items-center gap-2 shadow">
       <div className="text-primary">
-        {hours > 12 ? `${hours} PM` : `${hours} AM`}
+        {hours > 11
+          ? `${hours - 12 === 0 ? '12' : hours - 12} PM`
+          : `${hours === 0 ? '12' : hours} AM`}
       </div>
       <img src={iconWeather} alt="Clima nesta hora" width={60} height={60} />
       <div className={`font-bold text-primary flex gap-2 items-center text-xl`}>
