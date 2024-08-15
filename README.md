@@ -1,4 +1,17 @@
-# SkyNow
+<p>
+  <img
+    src="https://i.imgur.com/68HFlPS.png"
+    alt="Quiz de javascript"
+    width="450"
+  />
+  <img
+    src="https://i.imgur.com/ab6qibW.png"
+    alt="Quiz de react"
+    width="185"
+  />
+</p>
+
+## SkyNow
 
 SkyNow é um aplicativo que fornece informações detalhadas sobre o clima e a previsão do tempo. Com ele, você pode pesquisar o clima de qualquer local e obter previsões para as próximas 24 horas e para os próximos 5 dias!
 

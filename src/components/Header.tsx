@@ -6,6 +6,7 @@ import logoImg from '../assets/img/logo.png';
 
 export const Header = () => {
   const changeCoords = useCoordsStore(state => state.changeCoords);
+  const changeLocale = useCoordsStore(state => state.changeLocale);
 
   function handleGetPosition() {
     if (navigator.geolocation) {
@@ -13,6 +14,7 @@ export const Header = () => {
         position => {
           const { latitude: lat, longitude: lon } = position.coords;
           changeCoords(lat, lon);
+          changeLocale({ city: '', state: '', country: 'Local Atual' });
         },
         () => {
           alert('Não foi possível obter a sua localização.');
