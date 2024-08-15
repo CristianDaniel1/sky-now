@@ -2,12 +2,12 @@
   <img
     src="https://i.imgur.com/68HFlPS.png"
     alt="Quiz de javascript"
-    width="450"
+    width="520"
   />
   <img
     src="https://i.imgur.com/ab6qibW.png"
     alt="Quiz de react"
-    width="185"
+    width="215"
   />
 </p>
 
