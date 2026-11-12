@@ -1,4 +1,5 @@
 import fallbackIcon from '@/assets/weatherIcons/02d.png';
+import { METERS_PER_SECOND_TO_KM_PER_HOUR } from '../constants/weather';
 import { WEATHER_ICONS } from '../data/weather-icons';
 
 /**
@@ -10,12 +11,13 @@ import { WEATHER_ICONS } from '../data/weather-icons';
 export const formatTemperature = (celsius: number) => `${celsius.toFixed(1)}°C`;
 
 /**
- * Formats a wind speed with one decimal place.
+ * Converts a wind speed to kilometers per hour and formats it with one decimal place.
  *
- * @param speed - Wind speed returned by the API.
- * @returns The speed with its unit.
+ * @param metersPerSecond - Wind speed returned by the API, in meters per second.
+ * @returns The speed in km/h, e.g. "12.6 km/h".
  */
-export const formatWindSpeed = (speed: number) => `${speed.toFixed(1)} km/h`;
+export const formatWindSpeed = (metersPerSecond: number) =>
+  `${(metersPerSecond * METERS_PER_SECOND_TO_KM_PER_HOUR).toFixed(1)} km/h`;
 
 /**
  * Formats a visibility distance in kilometers.

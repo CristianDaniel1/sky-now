@@ -1,24 +1,38 @@
+import { APP_LOCALE } from '@/shared/constants/locale';
 import { capitalize } from '@/shared/lib/text';
 
-const toDate = (timestamp: number) => new Date(timestamp * 1000);
+const toPlaceDate = (timestamp: number, timezoneOffset: number) =>
+  new Date((timestamp + timezoneOffset) * 1000);
+
+const formatInPlace = (
+  timestamp: number,
+  timezoneOffset: number,
+  options: Intl.DateTimeFormatOptions,
+) =>
+  toPlaceDate(timestamp, timezoneOffset).toLocaleString(APP_LOCALE, {
+    ...options,
+    timeZone: 'UTC',
+  });
 
 /**
- * Formats a timestamp as the weekday name in the browser language.
+ * Formats a timestamp as the weekday name in the place's local time.
  *
  * @param timestamp - Unix time in seconds.
+ * @param timezoneOffset - Offset of the place from UTC, in seconds.
  * @returns The weekday name, e.g. "segunda-feira".
  */
-export const formatWeekday = (timestamp: number) =>
-  toDate(timestamp).toLocaleDateString(navigator.language, { weekday: 'long' });
+export const formatWeekday = (timestamp: number, timezoneOffset: number) =>
+  formatInPlace(timestamp, timezoneOffset, { weekday: 'long' });
 
 /**
- * Formats a timestamp as a long date in the browser language.
+ * Formats a timestamp as a long date in the place's local time.
  *
  * @param timestamp - Unix time in seconds.
+ * @param timezoneOffset - Offset of the place from UTC, in seconds.
  * @returns The capitalized date, e.g. "Segunda-feira, 11 de novembro".
  */
-export const formatLongDate = (timestamp: number) => {
-  const date = toDate(timestamp).toLocaleDateString(navigator.language, {
+export const formatLongDate = (timestamp: number, timezoneOffset: number) => {
+  const date = formatInPlace(timestamp, timezoneOffset, {
     weekday: 'long',
     month: 'long',
     day: '2-digit',
@@ -28,25 +42,35 @@ export const formatLongDate = (timestamp: number) => {
 };
 
 /**
- * Formats the hour of a timestamp as "HH:00".
+ * Formats the time of a timestamp in the place's local time, 24-hour clock.
  *
  * @param timestamp - Unix time in seconds.
- * @returns The two-digit hour followed by ":00".
+ * @param timezoneOffset - Offset of the place from UTC, in seconds.
+ * @returns The time, e.g. "15:00".
  */
-export const formatHour = (timestamp: number) => {
-  const hour = toDate(timestamp).getHours();
-  return `${String(hour).padStart(2, '0')}:00`;
-};
+export const formatHour = (timestamp: number, timezoneOffset: number) =>
+  formatInPlace(timestamp, timezoneOffset, {
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  });
 
 /**
- * Formats the hour of a timestamp in the 12-hour clock.
+ * Gets the calendar day of a timestamp in the place's local time.
  *
  * @param timestamp - Unix time in seconds.
- * @returns The hour with its period, e.g. "3 PM".
+ * @param timezoneOffset - Offset of the place from UTC, in seconds.
+ * @returns The day as `YYYY-MM-DD`, which sorts chronologically.
  */
-export const formatHour12 = (timestamp: number) => {
-  const hour = toDate(timestamp).getHours();
-  const period = hour < 12 ? 'AM' : 'PM';
+export const getPlaceDayKey = (timestamp: number, timezoneOffset: number) =>
+  toPlaceDate(timestamp, timezoneOffset).toISOString().slice(0, 10);
 
-  return `${hour % 12 || 12} ${period}`;
-};
+/**
+ * Gets the hour of a timestamp in the place's local time.
+ *
+ * @param timestamp - Unix time in seconds.
+ * @param timezoneOffset - Offset of the place from UTC, in seconds.
+ * @returns The hour, from 0 to 23.
+ */
+export const getPlaceHour = (timestamp: number, timezoneOffset: number) =>
+  toPlaceDate(timestamp, timezoneOffset).getUTCHours();

@@ -2,18 +2,20 @@ import { cn } from '@/shared/lib/cn';
 import { HIGHLIGHTED_FORECAST_DAYS } from '../../constants/weather';
 import { WEATHER_DETAIL_ICONS } from '../../data/detail-icons';
 import { UPCOMING_DAY_NAMES } from '../../data/forecast-labels';
-import type { ForecastSlot } from '../../interfaces/weather';
+import type { DailyForecast } from '../../interfaces/weather';
 import { formatWeekday } from '../../lib/dates';
 import { formatTemperature, formatWindSpeed, getWeatherIcon } from '../../lib/format';
 import { DetailItem } from '../details/DetailItem';
 import { TempMinMax } from '../details/TempMinMax';
 
 interface ForecastItemProps {
-  slot: ForecastSlot;
+  day: DailyForecast;
   position: number;
+  timezoneOffset: number;
 }
 
-export const ForecastItem = ({ slot, position }: ForecastItemProps) => {
+export const ForecastItem = ({ day, position, timezoneOffset }: ForecastItemProps) => {
+  const { slot } = day;
   const [condition] = slot.weather;
   const { main } = slot;
   const { thermometer } = WEATHER_DETAIL_ICONS;
@@ -32,7 +34,7 @@ export const ForecastItem = ({ slot, position }: ForecastItemProps) => {
         <div>
           <h3 className="pb-6 text-xl font-light text-balance">
             {dayName && `${dayName} - `}
-            {formatWeekday(slot.dt)}
+            {formatWeekday(slot.dt, timezoneOffset)}
           </h3>
           <div
             className={cn(
@@ -70,7 +72,7 @@ export const ForecastItem = ({ slot, position }: ForecastItemProps) => {
       </div>
       <div className="flex items-center justify-between">
         <p className="text-xl text-primary capitalize">{condition.description}</p>
-        <TempMinMax max={main.temp_max} min={main.temp_min} />
+        <TempMinMax max={day.max} min={day.min} />
       </div>
     </li>
   );

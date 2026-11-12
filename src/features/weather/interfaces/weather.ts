@@ -11,3 +11,10 @@ export interface TemperaturePoint {
   hour: string;
   temp: number;
 }
+
+export interface DailyForecast {
+  dayKey: string;
+  slot: ForecastSlot;
+  min: number;
+  max: number;
+}

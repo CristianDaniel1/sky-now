@@ -6,7 +6,7 @@ export const TemperatureTooltip = ({ active, payload, label }: TooltipContentPro
 
   return (
     <div className="rounded-md bg-white p-4 shadow-sm">
-      <p>{label}h</p>
+      <p>{label}</p>
       <p className="text-primary">
         Temperatura: <span>{point.value}°C</span>
       </p>

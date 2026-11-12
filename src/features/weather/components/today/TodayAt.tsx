@@ -6,9 +6,14 @@ export const TodayAt = () => {
   const { data: forecast } = useForecast();
 
   return (
-    <ol className="grid grid-cols-hourly gap-4 overflow-auto">
+    <ol
+      aria-label="Previsão das próximas 24 horas"
+      className="grid grid-cols-hourly gap-4 overflow-auto"
+    >
       {forecast &&
-        getNext24Hours(forecast.list).map((slot) => <TodayAtItem key={slot.dt} slot={slot} />)}
+        getNext24Hours(forecast.list).map((slot) => (
+          <TodayAtItem key={slot.dt} slot={slot} timezoneOffset={forecast.city.timezone} />
+        ))}
     </ol>
   );
 };

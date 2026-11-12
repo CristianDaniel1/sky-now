@@ -6,3 +6,9 @@ export const FORECAST_SLOTS_PER_DAY = 8;
 
 /** Number of upcoming days highlighted with a bigger card. */
 export const HIGHLIGHTED_FORECAST_DAYS = 2;
+
+/** Local hour whose forecast represents a whole day (icon, description, temperature). */
+export const REPRESENTATIVE_DAY_HOUR = 12;
+
+/** Conversion factor from meters per second to kilometers per hour. */
+export const METERS_PER_SECOND_TO_KM_PER_HOUR = 3.6;

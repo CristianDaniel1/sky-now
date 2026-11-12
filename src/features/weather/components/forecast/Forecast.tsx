@@ -6,15 +6,20 @@ import { SectionTitle } from '../SectionTitle';
 import { ForecastItem } from './ForecastItem';
 
 export const Forecast = () => {
-  const { data: forecast, isPending, isError, error } = useForecast();
+  const { data: forecast, dataUpdatedAt, isPending, isError, error } = useForecast();
 
   return (
     <section className="pt-4 pb-8">
       <SectionTitle title="Previsão" subtitle="Próximos dias" />
       {forecast && (
         <ol className="grid grid-cols-6 grid-rows-none justify-center gap-4 lg:grid-rows-2">
-          {getUpcomingDays(forecast.list).map((slot, index) => (
-            <ForecastItem key={slot.dt} slot={slot} position={index} />
+          {getUpcomingDays(forecast, dataUpdatedAt / 1000).map((day, index) => (
+            <ForecastItem
+              key={day.dayKey}
+              day={day}
+              position={index}
+              timezoneOffset={forecast.city.timezone}
+            />
           ))}
         </ol>
       )}

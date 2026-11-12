@@ -19,7 +19,7 @@ export const TemperatureChart = () => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
-        data={toTemperaturePoints(forecast.list)}
+        data={toTemperaturePoints(forecast)}
         className="text-xs font-medium text-slate-400 sm:text-sm"
         margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
       >
