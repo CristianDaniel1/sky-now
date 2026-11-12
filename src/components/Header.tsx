@@ -5,28 +5,28 @@ import { Button } from './ui/Button.tsx';
 import logoImg from '../assets/img/logo.png';
 
 export const Header = () => {
-  const changeCoords = useCoordsStore(state => state.changeCoords);
-  const changeLocale = useCoordsStore(state => state.changeLocale);
+  const changeCoords = useCoordsStore((state) => state.changeCoords);
+  const changeLocale = useCoordsStore((state) => state.changeLocale);
 
   function handleGetPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        position => {
+        (position) => {
           const { latitude: lat, longitude: lon } = position.coords;
           changeCoords(lat, lon);
           changeLocale({ city: '', state: '', country: 'Local Atual' });
         },
         () => {
           alert('Não foi possível obter a sua localização.');
-        }
+        },
       );
     }
   }
 
   return (
     <header className="bg-secundary shadow-xs">
-      <div className="flex items-center justify-between max-base lg:max-w-5xl px-4 py-3 sm:px-8 sm:py-6 flex-wrap gap-4">
-        <h1 className="font-bold text-xl sm:text-2xl text-primary flex items-center gap-2">
+      <div className="max-base flex flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-8 sm:py-6 lg:max-w-5xl">
+        <h1 className="flex items-center gap-2 text-xl font-bold text-primary sm:text-2xl">
           <img
             src={logoImg}
             alt="Logo de SkyNow, uma nuvem com óculos de sol"
@@ -40,7 +40,7 @@ export const Header = () => {
         </h1>
         <SearchBar />
         <Button
-          className="rounded-full flex gap-2 items-center px-2 py-2 md:px-6 md:py-3 order-2"
+          className="order-2 flex items-center gap-2 rounded-full px-2 py-2 md:px-6 md:py-3"
           onClick={handleGetPosition}
         >
           <GpsIcon />

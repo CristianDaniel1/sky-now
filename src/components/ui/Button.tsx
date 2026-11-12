@@ -6,17 +6,10 @@ type ButtonProps = {
   className?: string;
 } & ComponentPropsWithoutRef<'button'>;
 
-export const Button = ({
-  children,
-  textOnly,
-  className,
-  ...props
-}: ButtonProps) => {
+export const Button = ({ children, textOnly, className, ...props }: ButtonProps) => {
   return (
     <button
-      className={`bg-primary text-sky-50 block ${textOnly ? '' : ''} ${
-        className ? className : ''
-      }`}
+      className={`block bg-primary text-sky-50 ${textOnly ? '' : ''} ${className ? className : ''}`}
       {...props}
     >
       {children}

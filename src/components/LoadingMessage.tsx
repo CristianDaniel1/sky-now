@@ -5,22 +5,13 @@ interface LoadingMessageProps {
   className?: string;
 }
 
-export const LoadingMessage = ({
-  message,
-  className = '',
-}: LoadingMessageProps) => {
+export const LoadingMessage = ({ message, className = '' }: LoadingMessageProps) => {
   return (
     <div
-      className={`mx-auto h-full flex flex-col items-center justify-center gap-4 animate-pulse ${className}`}
+      className={`mx-auto flex h-full animate-pulse flex-col items-center justify-center gap-4 ${className}`}
     >
-      <p className="text-primary text-xl">{message}</p>
-      <img
-        src={weatherIcon}
-        alt="Clima"
-        width={80}
-        height={80}
-        className="animate-pulse"
-      />
+      <p className="text-xl text-primary">{message}</p>
+      <img src={weatherIcon} alt="Clima" width={80} height={80} className="animate-pulse" />
     </div>
   );
 };

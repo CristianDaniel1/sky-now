@@ -7,11 +7,8 @@ import { ErrorMessage } from '../ErrorMessage.tsx';
 import { useCoordsStore } from '../../store/weatherStore.ts';
 
 export const Forecast = () => {
-  const coords = useCoordsStore(state => state.coords);
-  const { data, isPending, isError, error } = useForecast(
-    coords.lat,
-    coords.lon
-  );
+  const coords = useCoordsStore((state) => state.coords);
+  const { data, isPending, isError, error } = useForecast(coords.lat, coords.lon);
 
   const nextDays: ListItem[] = [];
 
@@ -25,31 +22,20 @@ export const Forecast = () => {
 
   return (
     <section className="pt-4 pb-8">
-      <h2 className="text-2xl sm:text-3xl text-sky-600 font-light px-4 sm:px-6 py-6 flex items-center gap-2">
+      <h2 className="flex items-center gap-2 px-4 py-6 text-2xl font-light text-sky-600 sm:px-6 sm:text-3xl">
         <CalendarIcon />
         <div className="text-balance">
           <span className="font-medium">Previsão</span> - Próximos dias
         </div>
       </h2>
       {data && (
-        <ol className="grid grid-cols-6 grid-rows-none lg:grid-rows-2 gap-4 justify-center">
+        <ol className="grid grid-cols-6 grid-rows-none justify-center gap-4 lg:grid-rows-2">
           {nextDays.map((weather, index) => {
-            return (
-              <ForecastItem
-                key={weather.dt_txt}
-                order={index}
-                weatherInfo={weather}
-              />
-            );
+            return <ForecastItem key={weather.dt_txt} order={index} weatherInfo={weather} />;
           })}
         </ol>
       )}
-      {isPending && (
-        <LoadingMessage
-          message="Espere..."
-          className="bg-secundary rounded-md p-6"
-        />
-      )}
+      {isPending && <LoadingMessage message="Espere..." className="rounded-md bg-secundary p-6" />}
       {isError && (
         <ErrorMessage
           title="Não foi possível carregar a previsão!"

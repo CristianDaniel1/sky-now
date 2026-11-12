@@ -21,22 +21,20 @@ export const ForecastItem = ({ weatherInfo, order }: ForecastItemProps) => {
 
   return (
     <li
-      className={`bg-secundary shadow-sm p-6 rounded-xl ${
-        isBig ? 'lg:col-span-3 md:px-10' : 'lg:col-span-2'
-      } col-start-1 xs:col-start-2 col-span-full xs:col-span-4 sm:col-span-3`}
+      className={`rounded-xl bg-secundary p-6 shadow-sm ${
+        isBig ? 'md:px-10 lg:col-span-3' : 'lg:col-span-2'
+      } col-span-full col-start-1 xs:col-span-4 xs:col-start-2 sm:col-span-3`}
     >
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div>
           <h3 className="pb-6 text-xl font-light text-balance">
-            {(order === 0 && 'Amanhã - ') ||
-              (order === 1 && 'Depois de amanhã - ') ||
-              ''}
+            {(order === 0 && 'Amanhã - ') || (order === 1 && 'Depois de amanhã - ') || ''}
             {weekday}
           </h3>
           <div
             className={`${
               isBig ? 'md:text-4xl' : ''
-            } font-bold text-primary flex gap-2 items-center mb-4 text-2xl sm:text-3xl`}
+            } mb-4 flex items-center gap-2 text-2xl font-bold text-primary sm:text-3xl`}
           >
             {temp.toFixed(1)}°C
             <img
@@ -59,7 +57,7 @@ export const ForecastItem = ({ weatherInfo, order }: ForecastItemProps) => {
         />
       </div>
       <div className="flex items-center justify-between">
-        <p className="capitalize text-xl text-primary">{description}</p>
+        <p className="text-xl text-primary capitalize">{description}</p>
         <TempMinMax maxValue={temp_max} minValue={temp_min} />
       </div>
     </li>

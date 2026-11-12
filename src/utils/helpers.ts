@@ -4,7 +4,7 @@ interface WeatherIcons {
 }
 
 export const findIcon = (icons: WeatherIcons[], icon: string) => {
-  const iconWeather = icons.find(img => img.id === icon);
+  const iconWeather = icons.find((img) => img.id === icon);
 
   return iconWeather?.img;
 };

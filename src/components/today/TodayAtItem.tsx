@@ -15,21 +15,16 @@ export const TodayAtItem = ({ weatherInfo }: ForecastItemProps) => {
   const { hours } = getDate(weatherInfo.dt);
 
   return (
-    <li className="bg-secundary rounded-lg p-6 flex flex-col items-center gap-2 shadow-sm">
+    <li className="flex flex-col items-center gap-2 rounded-lg bg-secundary p-6 shadow-sm">
       <div className="text-primary">
         {hours > 11
           ? `${hours - 12 === 0 ? '12' : hours - 12} PM`
           : `${hours === 0 ? '12' : hours} AM`}
       </div>
       <img src={iconWeather} alt="Clima nesta hora" width={60} height={60} />
-      <div className={`font-bold text-primary flex gap-2 items-center text-xl`}>
+      <div className={`flex items-center gap-2 text-xl font-bold text-primary`}>
         {temp.toFixed(1)}°C
-        <img
-          src={thermometer.img}
-          alt={thermometer.alt}
-          width={25}
-          height={25}
-        />
+        <img src={thermometer.img} alt={thermometer.alt} width={25} height={25} />
       </div>
       <p className="text-center">{description}</p>
     </li>

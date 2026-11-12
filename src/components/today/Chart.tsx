@@ -18,7 +18,7 @@ interface TodayHours {
 }
 
 export const Chart = () => {
-  const coords = useCoordsStore(state => state.coords);
+  const coords = useCoordsStore((state) => state.coords);
   const { data } = useForecast(coords.lat, coords.lon);
   const todayHours: TodayHours[] = [];
 
@@ -41,7 +41,7 @@ export const Chart = () => {
             width={400}
             height={400}
             data={todayHours}
-            className="text-slate-400 sm:text-sm text-xs font-medium"
+            className="text-xs font-medium text-slate-400 sm:text-sm"
             margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
           >
             <YAxis domain={['auto', 'dataMax + 4']} stroke="currentColor" />
@@ -62,14 +62,10 @@ export const Chart = () => {
   );
 };
 
-const CustomTooltip = ({
-  active,
-  payload,
-  label,
-}: TooltipContentProps) => {
+const CustomTooltip = ({ active, payload, label }: TooltipContentProps) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-4 rounded-md shadow-sm">
+      <div className="rounded-md bg-white p-4 shadow-sm">
         <p>{label}h</p>
         <p className="text-primary">
           Temperatura: <span>{payload[0].value}°C</span>

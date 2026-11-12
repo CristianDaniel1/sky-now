@@ -5,22 +5,15 @@ interface SuggestionsItemProps {
   onChangeCoords: (lat: number, lon: number, locale: CurrentLocale) => void;
 }
 
-export const SuggestionsItem = ({
-  infoLocal,
-  onChangeCoords,
-}: SuggestionsItemProps) => {
+export const SuggestionsItem = ({ infoLocal, onChangeCoords }: SuggestionsItemProps) => {
   const { name: city, state, country } = infoLocal;
 
   return (
     <li
-      className="text-sm hover:bg-gray-100 px-1 sm:px-2 py-[2px] duration-150 border-b border-sky-100"
-      onClick={() =>
-        onChangeCoords(infoLocal.lat, infoLocal.lon, { city, state, country })
-      }
+      className="border-b border-sky-100 px-1 py-[2px] text-sm duration-150 hover:bg-gray-100 sm:px-2"
+      onClick={() => onChangeCoords(infoLocal.lat, infoLocal.lon, { city, state, country })}
     >
-      {`${city ? city + ',' : ''} ${state ? state + ',' : ''} ${
-        country ? country : ''
-      }`}
+      {`${city ? city + ',' : ''} ${state ? state + ',' : ''} ${country ? country : ''}`}
     </li>
   );
 };

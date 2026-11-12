@@ -8,16 +8,15 @@ import { SuggestionsItem } from './SuggestionsItem.tsx';
 import { MagnifyingGlassIcon } from './icons/MagnifyingGlassIcon.tsx';
 import { type CurrentLocale } from '../types.ts';
 
-const classes =
-  'bg-white absolute top-full left-0 mt-1 p-4 rounded-sm border-2 border-slate-200';
+const classes = 'bg-white absolute top-full left-0 mt-1 p-4 rounded-sm border-2 border-slate-200';
 
 export const SearchBar = () => {
   const resetForm = useRef<HTMLFormElement>(null);
   const lastChange = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
-  const changeCoords = useCoordsStore(state => state.changeCoords);
-  const changeLocale = useCoordsStore(state => state.changeLocale);
+  const changeCoords = useCoordsStore((state) => state.changeCoords);
+  const changeLocale = useCoordsStore((state) => state.changeLocale);
 
   const { data, isFetching, isError, error } = useGeo(searchTerm);
 
@@ -34,7 +33,7 @@ export const SearchBar = () => {
     event.preventDefault();
 
     const local = data?.find(
-      ele => ele.name.toLowerCase().trim() === searchTerm?.toLowerCase().trim()
+      (ele) => ele.name.toLowerCase().trim() === searchTerm?.toLowerCase().trim(),
     );
 
     if (local) {
@@ -60,29 +59,26 @@ export const SearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative sm:ml-0 order-3 sm:order-1 w-full sm:w-auto"
+      className="relative order-3 w-full sm:order-1 sm:ml-0 sm:w-auto"
       ref={resetForm}
     >
-      <MagnifyingGlassIcon className="text-sky-800 z-10 absolute top-1/2 -translate-y-1/2 left-2" />
-      <div className="flex gap-2 items-center bg-slate-100 rounded-full text-sky-800 outline outline-slate-100 focus-within:outline focus-within:outline-gray-200">
+      <MagnifyingGlassIcon className="absolute top-1/2 left-2 z-10 -translate-y-1/2 text-sky-800" />
+      <div className="flex items-center gap-2 rounded-full bg-slate-100 text-sky-800 outline outline-slate-100 focus-within:outline focus-within:outline-gray-200">
         <input
           type="search"
           placeholder="Pesquisar"
-          className="w-full sm:w-80 block bg-transparent outline-hidden py-1 px-4 pl-8 sm:py-2 z-20"
+          className="z-20 block w-full bg-transparent px-4 py-1 pl-8 outline-hidden sm:w-80 sm:py-2"
           onChange={handleChange}
         />
         {isFetching && <div className={classes}>...</div>}
         {isError && (
           <div className={classes}>
-            <ErrorMessage
-              title="Ops!"
-              message={error?.message || 'Tente novamente mais tarde.'}
-            />
+            <ErrorMessage title="Ops!" message={error?.message || 'Tente novamente mais tarde.'} />
           </div>
         )}
         {data && data.length > 0 && searchTerm && (
           <SuggestionsList className={classes}>
-            {data.map(local => (
+            {data.map((local) => (
               <SuggestionsItem
                 infoLocal={local}
                 key={local.lat + local.lon}

@@ -5,9 +5,6 @@ interface SuggestionsListProps {
   className: string;
 }
 
-export const SuggestionsList = ({
-  className,
-  children,
-}: SuggestionsListProps) => {
+export const SuggestionsList = ({ className, children }: SuggestionsListProps) => {
   return <ul className={className}>{children}</ul>;
 };

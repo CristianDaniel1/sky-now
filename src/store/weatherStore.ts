@@ -12,14 +12,14 @@ interface CoordsType {
 const { lat, lon } = DEFAULT_COORDS;
 const { city, state, country } = DEFAULT_LOCALE;
 
-export const useCoordsStore = create<CoordsType>(set => {
+export const useCoordsStore = create<CoordsType>((set) => {
   return {
     coords: { lat, lon },
     currentLocale: { city, state, country },
     changeCoords: (lat, lon) => {
       set({ coords: { lat, lon } });
     },
-    changeLocale: locale => {
+    changeLocale: (locale) => {
       set({
         currentLocale: {
           city: locale.city,

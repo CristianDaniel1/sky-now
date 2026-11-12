@@ -7,22 +7,14 @@ interface TempMinMaxProps {
   className?: string;
 }
 
-export const TempMinMax = ({
-  maxValue,
-  minValue,
-  className = '',
-}: TempMinMaxProps) => {
+export const TempMinMax = ({ maxValue, minValue, className = '' }: TempMinMaxProps) => {
   return (
     <div className="font-medium text-primary">
-      <div
-        className={`flex gap-2 items-center text-red-800 ${
-          className ? className : ''
-        }`}
-      >
+      <div className={`flex items-center gap-2 text-red-800 ${className ? className : ''}`}>
         <div>{maxValue.toFixed(1)}°C</div>
         <ArrowUpIcon />
       </div>
-      <div className={`flex gap-2 items-center ${className ? className : ''}`}>
+      <div className={`flex items-center gap-2 ${className ? className : ''}`}>
         <div>{minValue.toFixed(1)}°C</div>
         <ArrowDownIcon />
       </div>
