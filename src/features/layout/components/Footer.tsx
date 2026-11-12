@@ -1,4 +1,5 @@
 import logoImage from '@/assets/img/logo.png';
+import { InstallAppButton } from '@/features/pwa';
 import { PAGE_CONTAINER_CLASSES } from '@/shared/constants/styles';
 import { cn } from '@/shared/lib/cn';
 import { OPEN_WEATHER_URL } from '../constants/links';
@@ -32,6 +33,7 @@ export const Footer = () => (
           </a>
           .
         </p>
+        <InstallAppButton className="mt-2 w-fit rounded-full bg-accent/15 px-4 py-2 text-accent-strong transition-colors hover:bg-accent/25 md:hidden" />
       </div>
       <ul className="flex flex-wrap gap-2">
         {SOCIAL_LINKS.map((link) => (

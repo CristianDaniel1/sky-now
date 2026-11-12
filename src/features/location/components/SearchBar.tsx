@@ -1,5 +1,6 @@
 import { Search } from 'lucide-react';
 import { useId, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 import { SEARCH_POPOVER_CLASSES, SEARCH_STATUS_CLASSES } from '../constants/styles';
 import { usePlaceSuggestions } from '../hooks/usePlaceSuggestions';
 import { useSuggestionNavigation } from '../hooks/useSuggestionNavigation';
@@ -12,6 +13,7 @@ import { SuggestionsList } from './SuggestionsList';
 
 export const SearchBar = () => {
   const listId = useId();
+  const isOnline = useOnlineStatus();
   const [query, setQuery] = useState('');
   const selectLocation = useLocationStore((store) => store.selectLocation);
   const addRecent = useSavedPlacesStore((store) => store.addRecent);
@@ -71,7 +73,8 @@ export const SearchBar = () => {
       <input
         type="search"
         role="combobox"
-        placeholder="Pesquisar cidade"
+        placeholder={isOnline ? 'Pesquisar cidade' : 'Busca indisponível sem conexão'}
+        disabled={!isOnline}
         aria-label="Pesquisar cidade"
         aria-autocomplete="list"
         aria-expanded={hasSuggestions}
@@ -84,7 +87,7 @@ export const SearchBar = () => {
         onFocus={open}
         onBlur={close}
         onKeyDown={handleKeyDown}
-        className="block h-11 w-full rounded-full border border-transparent bg-slate-100 pr-4 pl-10 text-sky-800 transition-colors placeholder:text-sky-800/60 hover:border-line focus:bg-surface dark:bg-subtle dark:text-sky-100 dark:placeholder:text-sky-100/60"
+        className="block h-11 w-full rounded-full border border-transparent bg-slate-100 pr-4 pl-10 text-sky-800 transition-colors placeholder:text-sky-800/60 hover:border-line focus:bg-surface disabled:cursor-not-allowed disabled:opacity-60 dark:bg-subtle dark:text-sky-100 dark:placeholder:text-sky-100/60"
       />
       {showSearchPanel && isFetching && (
         <div role="status" className={SEARCH_POPOVER_CLASSES}>

@@ -1,5 +1,6 @@
 import logoImage from '@/assets/img/logo.png';
 import { CurrentLocationButton, SearchBar } from '@/features/location';
+import { InstallAppButton, OfflineNotice } from '@/features/pwa';
 import { ThemeToggle } from '@/features/theme';
 import { UnitToggle } from '@/features/units';
 import { PAGE_CONTAINER_CLASSES } from '@/shared/constants/styles';
@@ -21,10 +22,15 @@ export const Header = () => (
       </a>
       <SearchBar />
       <div className="ml-auto flex shrink-0 items-center gap-2">
+        <InstallAppButton
+          className="hidden size-11 rounded-full bg-accent/15 text-accent-strong transition-colors hover:bg-accent/25 md:flex lg:w-auto lg:px-4"
+          labelClassName="hidden lg:inline"
+        />
         <UnitToggle />
         <ThemeToggle />
         <CurrentLocationButton />
       </div>
     </div>
+    <OfflineNotice />
   </header>
 );

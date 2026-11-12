@@ -2,6 +2,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Footer, Header } from '@/features/layout';
+import { PwaPrompts } from '@/features/pwa';
 import { Weather } from '@/features/weather';
 import { reportError } from '@/shared/lib/report-error';
 import { AppErrorFallback } from './components/AppErrorFallback';
@@ -20,6 +21,7 @@ export const App = () => {
         <Header />
         <Weather />
         <Footer />
+        <PwaPrompts />
       </PersistQueryClientProvider>
     </ErrorBoundary>
   );
