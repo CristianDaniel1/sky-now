@@ -1,10 +1,11 @@
 import { useLocationStore } from '@/features/location';
+import { formatTemperature, useUnitSystem } from '@/features/units';
 import { WEATHER_DETAIL_ICONS } from '../../data/detail-icons';
 import { useForecast } from '../../hooks/useForecast';
 import type { CurrentWeather } from '../../interfaces/weather';
 import { formatClockTime, formatHour, formatLongDate } from '../../lib/dates';
 import { getNext24HoursRange, toHourlyPoints } from '../../lib/forecast';
-import { formatTemperature, getWeatherIcon } from '../../lib/format';
+import { getWeatherIcon } from '../../lib/format';
 import { TempMinMax } from '../details/TempMinMax';
 import { TodayDetails } from './TodayDetails';
 
@@ -16,10 +17,11 @@ interface CurrentConditionsProps {
 export const CurrentConditions = ({ weather, updatedAt }: CurrentConditionsProps) => {
   const selectedCity = useLocationStore((store) => store.label.city);
   const { data: forecast } = useForecast();
+  const system = useUnitSystem();
 
   const [condition] = weather.weather;
   const { main, timezone } = weather;
-  const temperature = formatTemperature(main.temp);
+  const temperature = formatTemperature(main.temp, system);
   const range = forecast
     ? getNext24HoursRange(forecast, main.temp)
     : { min: main.temp_min, max: main.temp_max };

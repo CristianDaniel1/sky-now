@@ -22,7 +22,7 @@ export const getNext24Hours = (slots: ForecastSlot[]) => slots.slice(0, FORECAST
  * Builds the hourly timeline of the next 24 hours.
  *
  * @param forecast - Forecast of the place.
- * @returns The local time, rounded temperature, rain chance and condition of each slot.
+ * @returns The local time, temperature in degrees Celsius, rain chance and condition of each slot.
  */
 export const toHourlyPoints = (forecast: Forecast): HourlyPoint[] =>
   getNext24Hours(forecast.list).map((slot) => {
@@ -31,7 +31,7 @@ export const toHourlyPoints = (forecast: Forecast): HourlyPoint[] =>
     return {
       time: slot.dt,
       hour: formatHour(slot.dt, forecast.city.timezone),
-      temp: Math.round(slot.main.temp),
+      temp: slot.main.temp,
       rainChance: toPercentage(slot.pop),
       icon: condition.icon,
       description: condition.description,
@@ -43,7 +43,7 @@ export const toHourlyPoints = (forecast: Forecast): HourlyPoint[] =>
  *
  * @param forecast - Forecast of the place.
  * @param currentTemperature - Temperature right now, in degrees Celsius.
- * @returns The rounded range of the next 24 hours.
+ * @returns The range of the next 24 hours, in degrees Celsius.
  */
 export const getNext24HoursRange = (
   forecast: Forecast,
@@ -55,8 +55,8 @@ export const getNext24HoursRange = (
   ];
 
   return {
-    min: Math.round(Math.min(...temperatures)),
-    max: Math.round(Math.max(...temperatures)),
+    min: Math.min(...temperatures),
+    max: Math.max(...temperatures),
   };
 };
 

@@ -1,6 +1,7 @@
 import logoImage from '@/assets/img/logo.png';
 import { CurrentLocationButton, SearchBar } from '@/features/location';
 import { ThemeToggle } from '@/features/theme';
+import { UnitToggle } from '@/features/units';
 import { PAGE_CONTAINER_CLASSES } from '@/shared/constants/styles';
 import { cn } from '@/shared/lib/cn';
 
@@ -20,6 +21,7 @@ export const Header = () => (
       </a>
       <SearchBar />
       <div className="ml-auto flex shrink-0 items-center gap-2">
+        <UnitToggle />
         <ThemeToggle />
         <CurrentLocationButton />
       </div>

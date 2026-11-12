@@ -1,15 +1,11 @@
+import { formatTemperature, formatWindSpeed, useUnitSystem } from '@/features/units';
 import { cn } from '@/shared/lib/cn';
 import { HIGHLIGHTED_FORECAST_DAYS } from '../../constants/weather';
 import { WEATHER_DETAIL_ICONS } from '../../data/detail-icons';
 import { UPCOMING_DAY_NAMES } from '../../data/forecast-labels';
 import type { DailyForecast } from '../../interfaces/weather';
 import { formatWeekday } from '../../lib/dates';
-import {
-  formatTemperature,
-  getCompassPoint,
-  getWeatherIcon,
-  toKilometersPerHour,
-} from '../../lib/format';
+import { getCompassPoint, getWeatherIcon } from '../../lib/format';
 import { DetailImage } from '../details/DetailImage';
 import { DetailItem } from '../details/DetailItem';
 import { RainChance } from '../details/RainChance';
@@ -23,6 +19,7 @@ interface ForecastItemProps {
 
 export const ForecastItem = ({ day, position, timezoneOffset }: ForecastItemProps) => {
   const { slot } = day;
+  const system = useUnitSystem();
   const [condition] = slot.weather;
   const isHighlighted = position < HIGHLIGHTED_FORECAST_DAYS;
   const dayName = UPCOMING_DAY_NAMES[position];
@@ -46,7 +43,7 @@ export const ForecastItem = ({ day, position, timezoneOffset }: ForecastItemProp
               isHighlighted && 'md:text-4xl',
             )}
           >
-            {formatTemperature(slot.main.temp)}
+            {formatTemperature(slot.main.temp, system)}
             <img
               src={WEATHER_DETAIL_ICONS.thermometer.src}
               alt=""
@@ -65,7 +62,7 @@ export const ForecastItem = ({ day, position, timezoneOffset }: ForecastItemProp
             <DetailItem
               icon={<DetailImage image={WEATHER_DETAIL_ICONS.wind} />}
               label="Vento"
-              value={`${toKilometersPerHour(slot.wind.speed)} km/h (${getCompassPoint(slot.wind.deg)})`}
+              value={`${formatWindSpeed(slot.wind.speed, system)} (${getCompassPoint(slot.wind.deg)})`}
             />
           </dl>
         </div>
