@@ -15,5 +15,6 @@ export const useAirQuality = () => {
     queryKey: ['air-pollution', coords],
     queryFn: ({ signal }) => fetchAirPollution({ ...coords, signal }),
     staleTime: WEATHER_STALE_TIME_MS,
+    meta: { persist: true },
   });
 };

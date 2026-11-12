@@ -1,4 +1,5 @@
 import { useEffect, useSyncExternalStore } from 'react';
+import { THEME_BROWSER_COLORS } from '../data/browser-colors';
 import { getSystemTheme, subscribeToSystemTheme } from '../lib/system-theme';
 import { useThemeStore } from '../store/theme.store';
 
@@ -16,6 +17,9 @@ export const useTheme = () => {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', THEME_BROWSER_COLORS[theme]);
   }, [theme]);
 
   const toggleTheme = () => setPreference(theme === 'dark' ? 'light' : 'dark');

@@ -15,5 +15,6 @@ export const useForecast = () => {
     queryKey: ['forecast', coords],
     queryFn: ({ signal }) => fetchForecast({ ...coords, signal }),
     staleTime: WEATHER_STALE_TIME_MS,
+    meta: { persist: true },
   });
 };

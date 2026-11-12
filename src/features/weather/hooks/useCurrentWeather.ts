@@ -15,5 +15,6 @@ export const useCurrentWeather = () => {
     queryKey: ['current-weather', coords],
     queryFn: ({ signal }) => fetchCurrentWeather({ ...coords, signal }),
     staleTime: WEATHER_STALE_TIME_MS,
+    meta: { persist: true },
   });
 };
