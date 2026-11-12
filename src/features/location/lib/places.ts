@@ -12,6 +12,16 @@ export const getPlaceKey = ({ lat, lon }: Coordinates) =>
   `${lat.toFixed(PLACE_KEY_PRECISION)},${lon.toFixed(PLACE_KEY_PRECISION)}`;
 
 /**
+ * Checks whether two coordinates point to the same place.
+ *
+ * @param left - Coordinates of one place.
+ * @param right - Coordinates of the other place.
+ * @returns Whether both are the same place.
+ */
+export const isSamePlace = (left: Coordinates, right: Coordinates) =>
+  getPlaceKey(left) === getPlaceKey(right);
+
+/**
  * Checks whether a list contains the place at the given coordinates.
  *
  * @param places - Places to look in.

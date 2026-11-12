@@ -17,7 +17,7 @@ export const SearchBar = () => {
   const addRecent = useSavedPlacesStore((store) => store.addRecent);
   const {
     searchTerm,
-    isShowingSaved,
+    isShowingRecents,
     isSearchSettled,
     groups,
     places,
@@ -29,7 +29,7 @@ export const SearchBar = () => {
     useSuggestionNavigation(places);
 
   const showSearchPanel = isOpen && isSearchSettled;
-  const canListPlaces = isShowingSaved ? isOpen : showSearchPanel && !isFetching;
+  const canListPlaces = isShowingRecents ? isOpen : showSearchPanel && !isFetching;
   const hasSuggestions = canListPlaces && !!places.length;
   const hasNoResults = showSearchPanel && !isFetching && !isError && !places.length;
 
@@ -106,7 +106,7 @@ export const SearchBar = () => {
       {hasSuggestions && (
         <SuggestionsList
           id={listId}
-          label={isShowingSaved ? 'Locais salvos' : 'Locais encontrados'}
+          label={isShowingRecents ? 'Buscas recentes' : 'Locais encontrados'}
           groups={groups}
           activeIndex={activeIndex}
           onSelect={handleSelect}

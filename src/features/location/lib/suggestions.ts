@@ -1,5 +1,4 @@
 import type { Place, PlaceGroup, PlaceGroupInput } from '../interfaces/location';
-import { hasPlace } from './places';
 
 /**
  * Moves the highlighted suggestion, wrapping around the ends of the list.
@@ -40,16 +39,10 @@ export const indexPlaceGroups = (groups: PlaceGroupInput[]): PlaceGroup[] => {
 };
 
 /**
- * Builds the groups shown before typing: favorites, then recent places that are not favorites.
+ * Builds the group shown before typing: the recently selected places.
  *
- * @param favorites - Favorite places.
  * @param recents - Recently selected places, newest first.
- * @returns The non-empty groups.
+ * @returns The recent places group, or no group when there are none.
  */
-export const buildSavedPlaceGroups = (favorites: Place[], recents: Place[]) => {
-  const groups: PlaceGroupInput[] = [
-    { kind: 'favorites', places: favorites },
-    { kind: 'recents', places: recents.filter((recent) => !hasPlace(favorites, recent.coords)) },
-  ];
-  return indexPlaceGroups(groups.filter((group) => !!group.places.length));
-};
+export const buildRecentPlaceGroups = (recents: Place[]) =>
+  indexPlaceGroups(recents.length ? [{ kind: 'recents', places: recents }] : []);

@@ -27,7 +27,7 @@ export interface SavedPlacesState {
   addRecent: (place: Place) => void;
 }
 
-export type PlaceGroupKind = 'favorites' | 'recents' | 'results';
+export type PlaceGroupKind = 'recents' | 'results';
 
 export interface PlaceGroupInput {
   kind: PlaceGroupKind;
