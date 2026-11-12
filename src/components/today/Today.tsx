@@ -46,7 +46,7 @@ export const Today = () => {
               className="w-10 sm:w-14"
             />
           </div>
-          <div className="h-56 sm:h-80 bg-color-slate p-1 sm:p-4 mt-10 rounded border border-gray-200">
+          <div className="h-56 sm:h-80 bg-color-slate p-1 sm:p-4 mt-10 rounded-sm border border-gray-200">
             <Chart />
           </div>
         </div>
@@ -74,7 +74,7 @@ export const Today = () => {
         </h2>
         <CurrentLocale />
       </div>
-      <div className="bg-secundary px-5 py-8 sm:p-10 rounded-xl shadow md:flex gap-10 min-h-96">
+      <div className="bg-secundary px-5 py-8 sm:p-10 rounded-xl shadow-sm md:flex gap-10 min-h-96">
         {isPending && (
           <LoadingMessage message="Carrengando dados do tempo..." />
         )}

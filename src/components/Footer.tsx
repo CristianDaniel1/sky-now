@@ -2,7 +2,7 @@ import { links } from '../data.ts';
 
 export const Footer = () => {
   return (
-    <footer className="bg-secundary border-t">
+    <footer className="bg-secundary border-t border-gray-200">
       <p className="text-center py-8 font-medium">
         Desenvolvido por{' '}
         <span className="text-orange-600">Cristian Daniel</span>

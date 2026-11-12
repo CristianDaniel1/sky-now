@@ -15,7 +15,7 @@ export const TodayAtItem = ({ weatherInfo }: ForecastItemProps) => {
   const { hours } = getDate(weatherInfo.dt);
 
   return (
-    <li className="bg-secundary rounded-lg p-6 flex flex-col items-center gap-2 shadow">
+    <li className="bg-secundary rounded-lg p-6 flex flex-col items-center gap-2 shadow-sm">
       <div className="text-primary">
         {hours > 11
           ? `${hours - 12 === 0 ? '12' : hours - 12} PM`

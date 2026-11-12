@@ -9,11 +9,11 @@ import { MagnifyingGlassIcon } from './icons/MagnifyingGlassIcon.tsx';
 import { type CurrentLocale } from '../types.ts';
 
 const classes =
-  'bg-white absolute top-full left-0 mt-1 p-4 rounded border-2 border-slate-200';
+  'bg-white absolute top-full left-0 mt-1 p-4 rounded-sm border-2 border-slate-200';
 
 export const SearchBar = () => {
   const resetForm = useRef<HTMLFormElement>(null);
-  const lastChange = useRef<number | null>();
+  const lastChange = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const changeCoords = useCoordsStore(state => state.changeCoords);
@@ -68,7 +68,7 @@ export const SearchBar = () => {
         <input
           type="search"
           placeholder="Pesquisar"
-          className="w-full sm:w-80 block bg-transparent outline-none py-1 px-4 pl-8 sm:py-2 z-20"
+          className="w-full sm:w-80 block bg-transparent outline-hidden py-1 px-4 pl-8 sm:py-2 z-20"
           onChange={handleChange}
         />
         {isFetching && <div className={classes}>...</div>}

@@ -24,7 +24,7 @@ export const Header = () => {
   }
 
   return (
-    <header className="bg-secundary shadow-sm">
+    <header className="bg-secundary shadow-xs">
       <div className="flex items-center justify-between max-base lg:max-w-5xl px-4 py-3 sm:px-8 sm:py-6 flex-wrap gap-4">
         <h1 className="font-bold text-xl sm:text-2xl text-primary flex items-center gap-2">
           <img

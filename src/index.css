@@ -1,19 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #0c4a6e;
+  --color-secundary: #fff;
+  --color-tertiary: #f3f4f6;
+  --color-color-slate: #f8fafc;
+
+  --breakpoint-xs: 480px;
+}
+
+@utility grid-cols-hourly {
+  grid-template-columns: repeat(8, minmax(10rem, 1fr));
+}
+
+@utility max-base {
+  @apply max-w-3xl mx-auto my-0;
+}
 
 @layer base {
-  * {
-    @apply box-border list-none p-0 m-0;
+  li {
+    list-style: none;
   }
 
   body {
     @apply min-h-screen bg-tertiary;
   }
-}
 
-@layer components {
-  .max-base {
-    @apply max-w-3xl mx-auto my-0;
+  /* Tailwind v4 mudou o cursor padrão dos botões para "default" */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
   }
 }

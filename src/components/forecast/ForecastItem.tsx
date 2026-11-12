@@ -21,7 +21,7 @@ export const ForecastItem = ({ weatherInfo, order }: ForecastItemProps) => {
 
   return (
     <li
-      className={`bg-secundary shadow p-6 rounded-xl ${
+      className={`bg-secundary shadow-sm p-6 rounded-xl ${
         isBig ? 'lg:col-span-3 md:px-10' : 'lg:col-span-2'
       } col-start-1 xs:col-start-2 col-span-full xs:col-span-4 sm:col-span-3`}
     >

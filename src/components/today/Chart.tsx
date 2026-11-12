@@ -7,7 +7,7 @@ import {
   Tooltip,
   CartesianGrid,
 } from 'recharts';
-import { TooltipProps } from 'recharts';
+import { type TooltipContentProps } from 'recharts';
 import { useForecast } from '../../hooks/useForecast.ts';
 import { getDate } from '../../utils/helpers.ts';
 import { useCoordsStore } from '../../store/weatherStore.ts';
@@ -47,7 +47,7 @@ export const Chart = () => {
             <YAxis domain={['auto', 'dataMax + 4']} stroke="currentColor" />
             <XAxis dataKey="strHours" stroke="currentColor" />
             <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={CustomTooltip} />
             <Line
               type="monotone"
               dataKey="temp"
@@ -66,10 +66,10 @@ const CustomTooltip = ({
   active,
   payload,
   label,
-}: TooltipProps<number, string>) => {
+}: TooltipContentProps) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-4 rounded-md shadow">
+      <div className="bg-white p-4 rounded-md shadow-sm">
         <p>{label}h</p>
         <p className="text-primary">
           Temperatura: <span>{payload[0].value}°C</span>
@@ -77,4 +77,5 @@ const CustomTooltip = ({
       </div>
     );
   }
+  return null;
 };
