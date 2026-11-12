@@ -2,10 +2,13 @@
   "compilerOptions": {
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "skipLibCheck": true,
+    "target": "ES2023",
+    "lib": ["ES2023"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
+    "types": ["node"],
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
     "strict": true,
     "noEmit": true
   },
