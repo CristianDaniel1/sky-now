@@ -1,3 +1,4 @@
+import { reportError } from '@/shared/lib/report-error';
 import {
   GEOLOCATION_DEFAULT_ERROR_MESSAGE,
   GEOLOCATION_ERROR_MESSAGES,
@@ -22,3 +23,18 @@ export const getCurrentPosition = (options: PositionOptions) =>
   new Promise<GeolocationPosition>((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject, options);
   });
+
+/**
+ * Reads whether the site may use the browser position, without asking the user.
+ *
+ * @returns The permission state; "prompt" when the browser cannot tell.
+ */
+export const getGeolocationPermission = async (): Promise<PermissionState> => {
+  try {
+    const status = await navigator.permissions.query({ name: 'geolocation' });
+    return status.state;
+  } catch (error) {
+    reportError('location: read geolocation permission', error);
+    return 'prompt';
+  }
+};

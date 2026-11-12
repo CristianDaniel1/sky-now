@@ -1,4 +1,9 @@
-import { FavoriteButton, FavoritePlaces, SelectedLocation } from '@/features/location';
+import {
+  FavoriteButton,
+  FavoritePlaces,
+  LocationOffer,
+  SelectedLocation,
+} from '@/features/location';
 import { ErrorMessage } from '@/shared/components/ErrorMessage';
 import { useCurrentWeather } from '../../hooks/useCurrentWeather';
 import { SectionTitle } from '../SectionTitle';
@@ -10,6 +15,7 @@ export const Today = () => {
 
   return (
     <section className="my-4">
+      <LocationOffer />
       <FavoritePlaces />
       <div className="flex flex-wrap items-center justify-between gap-x-6 pt-4">
         <SectionTitle title="Tempo" subtitle="Hoje" className="py-3 sm:py-6" />

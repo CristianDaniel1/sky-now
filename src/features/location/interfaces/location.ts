@@ -17,7 +17,9 @@ export interface Place {
 }
 
 export interface LocationState extends Place {
+  isFirstVisit: boolean;
   selectLocation: (place: Place) => void;
+  dismissFirstVisit: () => void;
 }
 
 export interface SavedPlacesState {

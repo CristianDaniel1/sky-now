@@ -13,6 +13,9 @@ export const CURRENT_POSITION_LABEL: LocationLabel = { city: '', country: 'Local
 /** `localStorage` key of the last selected place. */
 export const LOCATION_STORAGE_KEY = 'sky-now:location';
 
+/** Version of the saved place data; older data comes from visitors who already picked a place. */
+export const LOCATION_STORE_VERSION = 1;
+
 /** Time without typing before searching places, in milliseconds. */
 export const LOCATION_SEARCH_DEBOUNCE_MS = 500;
 
