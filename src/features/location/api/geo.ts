@@ -1,7 +1,12 @@
 import { fetchJson } from '@/shared/api/http';
 import { buildOpenWeatherUrl } from '@/shared/api/open-weather';
+import type { Coordinates } from '@/shared/interfaces/coordinates';
 import { GEO_SEARCH_LIMIT } from '../constants/location';
 import { geoLocationsSchema } from './schemas';
+
+interface ReverseGeocodeInput extends Coordinates {
+  signal: AbortSignal;
+}
 
 interface SearchLocationsInput {
   query: string;
@@ -20,4 +25,18 @@ export const searchLocations = ({ query, signal }: SearchLocationsInput) =>
     schema: geoLocationsSchema,
     signal,
     errorMessage: 'Erro ao procurar local, tente mais tarde.',
+  });
+
+/**
+ * Finds the place at a pair of coordinates with the OpenWeatherMap reverse geocoding API.
+ *
+ * @param input - Coordinates to look up and the abort signal of the request.
+ * @returns The places at the coordinates, the closest first.
+ */
+export const reverseGeocode = ({ lat, lon, signal }: ReverseGeocodeInput) =>
+  fetchJson({
+    url: buildOpenWeatherUrl('/geo/1.0/reverse', { lat, lon, limit: 1 }),
+    schema: geoLocationsSchema,
+    signal,
+    errorMessage: 'Erro ao identificar o local atual.',
   });
