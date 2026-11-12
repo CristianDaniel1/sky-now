@@ -1,4 +1,6 @@
+import type { LucideIcon } from 'lucide-react';
 import type { z } from 'zod';
+import type { UnitSystem } from '@/features/units';
 import type { currentWeatherSchema, forecastSchema, forecastSlotSchema } from '../api/schemas';
 
 export type CurrentWeather = z.infer<typeof currentWeatherSchema>;
@@ -27,4 +29,30 @@ export interface DailyForecast {
 export interface TemperatureRange {
   min: number;
   max: number;
+}
+
+export type DaySummaryKind =
+  'rain' | 'snow' | 'wind' | 'heat' | 'cold' | 'drop' | 'dry' | 'lowRain';
+
+export interface DaySummaryResult {
+  kind: DaySummaryKind;
+  message: string;
+}
+
+export interface DaySummaryInput {
+  weather: CurrentWeather;
+  points: HourlyPoint[];
+  system: UnitSystem;
+}
+
+export interface DaySummaryContext extends Omit<DaySummaryInput, 'points'> {
+  points: [HourlyPoint, ...HourlyPoint[]];
+  warmest: HourlyPoint;
+  coldest: HourlyPoint;
+  wettest: HourlyPoint;
+}
+
+export interface DaySummaryStyle {
+  icon: LucideIcon;
+  className: string;
 }

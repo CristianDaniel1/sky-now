@@ -7,6 +7,7 @@ import { formatClockTime, formatHour, formatLongDate } from '../../lib/dates';
 import { getNext24HoursRange, toHourlyPoints } from '../../lib/forecast';
 import { getWeatherIcon } from '../../lib/format';
 import { TempMinMax } from '../details/TempMinMax';
+import { DaySummary } from './DaySummary';
 import { TodayDetails } from './TodayDetails';
 
 interface CurrentConditionsProps {
@@ -25,7 +26,8 @@ export const CurrentConditions = ({ weather, updatedAt }: CurrentConditionsProps
   const range = forecast
     ? getNext24HoursRange(forecast, main.temp)
     : { min: main.temp_min, max: main.temp_max };
-  const [nextHour] = forecast ? toHourlyPoints(forecast) : [];
+  const points = forecast ? toHourlyPoints(forecast) : [];
+  const [nextHour] = points;
 
   return (
     <>
@@ -69,6 +71,7 @@ export const CurrentConditions = ({ weather, updatedAt }: CurrentConditionsProps
               </div>
             </div>
           </div>
+          <DaySummary weather={weather} points={points} />
         </div>
         <TodayDetails weather={weather} rainChance={nextHour?.rainChance} />
       </div>
