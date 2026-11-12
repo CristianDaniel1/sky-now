@@ -15,6 +15,15 @@ const formatInPlace = (
   });
 
 /**
+ * Formats a moment as "HH:mm" in the browser's time zone.
+ *
+ * @param milliseconds - Unix time in milliseconds.
+ * @returns The local clock time, e.g. "14:05".
+ */
+export const formatClockTime = (milliseconds: number) =>
+  new Date(milliseconds).toLocaleTimeString(APP_LOCALE, { hour: '2-digit', minute: '2-digit' });
+
+/**
  * Formats a timestamp as the weekday name in the place's local time.
  *
  * @param timestamp - Unix time in seconds.

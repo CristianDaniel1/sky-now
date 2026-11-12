@@ -1,21 +1,24 @@
-import { ArrowDownIcon } from '@/shared/components/icons/ArrowDownIcon';
-import { ArrowUpIcon } from '@/shared/components/icons/ArrowUpIcon';
+import { ArrowDown, ArrowUp } from 'lucide-react';
+import { cn } from '@/shared/lib/cn';
+import type { TemperatureRange } from '../../interfaces/weather';
 import { formatTemperature } from '../../lib/format';
 
 interface TempMinMaxProps {
-  max: number;
-  min: number;
+  range: TemperatureRange;
+  className?: string | undefined;
 }
 
-export const TempMinMax = ({ max, min }: TempMinMaxProps) => (
-  <div className="font-medium text-primary">
-    <div className="flex items-center gap-2 text-red-800">
-      <div>{formatTemperature(max)}</div>
-      <ArrowUpIcon />
-    </div>
-    <div className="flex items-center gap-2">
-      <div>{formatTemperature(min)}</div>
-      <ArrowDownIcon />
-    </div>
+export const TempMinMax = ({ range, className }: TempMinMaxProps) => (
+  <div className={cn('font-medium text-primary tabular-nums', className)}>
+    <p className="flex items-center gap-2 text-hot">
+      <span className="sr-only">Máxima</span>
+      {formatTemperature(range.max)}
+      <ArrowUp aria-hidden="true" className="size-5" />
+    </p>
+    <p className="flex items-center gap-2">
+      <span className="sr-only">Mínima</span>
+      {formatTemperature(range.min)}
+      <ArrowDown aria-hidden="true" className="size-5" />
+    </p>
   </div>
 );

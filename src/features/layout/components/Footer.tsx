@@ -1,22 +1,59 @@
+import logoImage from '@/assets/img/logo.png';
+import { PAGE_CONTAINER_CLASSES } from '@/shared/constants/styles';
+import { cn } from '@/shared/lib/cn';
+import { OPEN_WEATHER_URL } from '../constants/links';
 import { SOCIAL_LINKS } from '../data/social-links';
 
 export const Footer = () => (
-  <footer className="border-t border-gray-200 bg-secundary">
-    <p className="py-8 text-center font-medium">
-      Desenvolvido por <span className="text-orange-600">Cristian Daniel</span>
-    </p>
-    <ul className="flex justify-center gap-6 pb-10">
-      {SOCIAL_LINKS.map((link) => (
-        <li key={link.url}>
+  <footer className="border-t border-line bg-surface">
+    <div
+      className={cn(
+        PAGE_CONTAINER_CLASSES,
+        'flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between',
+      )}
+    >
+      <div className="flex flex-col gap-2">
+        <p className="flex items-center gap-2 text-lg font-bold text-primary">
+          <img src={logoImage} alt="" width={28} height={28} className="w-7" />
+          <span>
+            Sky<span className="text-accent">Now</span>
+          </span>
+        </p>
+        <p className="text-sm text-muted">
+          Desenvolvido por <span className="font-medium text-accent-strong">Cristian Daniel</span>.
+          Dados meteorológicos da{' '}
           <a
-            href={link.url}
-            target={link.isExternal ? '_blank' : undefined}
-            rel={link.isExternal ? 'noopener noreferrer' : undefined}
+            href={OPEN_WEATHER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-primary underline-offset-4 hover:underline"
           >
-            <img src={link.icon.src} alt={link.icon.alt} width={40} height={40} className="w-10" />
+            OpenWeather
           </a>
-        </li>
-      ))}
-    </ul>
+          .
+        </p>
+      </div>
+      <ul className="flex flex-wrap gap-2">
+        {SOCIAL_LINKS.map((link) => (
+          <li key={link.url}>
+            <a
+              href={link.url}
+              target={link.isExternal ? '_blank' : undefined}
+              rel={link.isExternal ? 'noopener noreferrer' : undefined}
+              className="flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-subtle"
+            >
+              <img
+                src={link.icon}
+                alt=""
+                width={18}
+                height={18}
+                className={cn('size-[18px]', link.invertOnDark && 'dark:invert')}
+              />
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </footer>
 );

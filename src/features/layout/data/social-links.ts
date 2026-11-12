@@ -7,17 +7,23 @@ import type { SocialLink } from '../interfaces/social-link';
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     url: 'https://www.linkedin.com/in/cristiandaniel1',
-    icon: { src: linkedinIcon, alt: 'Ícone do LinkedIn' },
+    name: 'LinkedIn',
+    icon: linkedinIcon,
     isExternal: true,
+    invertOnDark: false,
   },
   {
     url: 'https://github.com/CristianDaniel1',
-    icon: { src: githubIcon, alt: 'Ícone do GitHub' },
+    name: 'GitHub',
+    icon: githubIcon,
     isExternal: true,
+    invertOnDark: true,
   },
   {
     url: 'mailto:cristiandaniel.1050@gmail.com',
-    icon: { src: emailIcon, alt: 'Ícone de e-mail' },
+    name: 'E-mail',
+    icon: emailIcon,
     isExternal: false,
+    invertOnDark: false,
   },
 ];

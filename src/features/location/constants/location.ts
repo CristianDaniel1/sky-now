@@ -10,6 +10,9 @@ export const DEFAULT_LOCATION_LABEL: LocationLabel = { city: 'Mexico City', coun
 /** Label used when the browser position is selected. */
 export const CURRENT_POSITION_LABEL: LocationLabel = { city: '', country: 'Local Atual' };
 
+/** `localStorage` key of the last selected place. */
+export const LOCATION_STORAGE_KEY = 'sky-now:location';
+
 /** Time without typing before searching places, in milliseconds. */
 export const LOCATION_SEARCH_DEBOUNCE_MS = 500;
 

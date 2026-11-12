@@ -1,34 +1,79 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/hanken-grotesk';
 
-@theme {
-  --color-primary: #0c4a6e;
-  --color-secundary: #fff;
-  --color-tertiary: #f3f4f6;
-  --color-color-slate: #f8fafc;
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  color-scheme: light;
+
+  --canvas: #f3f4f6;
+  --surface: #ffffff;
+  --subtle: #f8fafc;
+  --line: #e5e7eb;
+  --primary: #0c4a6e;
+  --muted: #64748b;
+  --heading: #0284c7;
+  --accent: #fb923c;
+  --accent-strong: #ea580c;
+  --rain: #0369a1;
+  --hot: #991b1b;
+  --cold: #38bdf8;
+  --brand: #0c4a6e;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --canvas: #0b1621;
+  --surface: #12212e;
+  --subtle: #0f1c27;
+  --line: #22384a;
+  --primary: #e0f2fe;
+  --muted: #94a9b8;
+  --heading: #38bdf8;
+  --accent: #fb923c;
+  --accent-strong: #fb923c;
+  --rain: #7dd3fc;
+  --hot: #fca5a5;
+  --cold: #38bdf8;
+  --brand: #0369a1;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-muted: var(--muted);
+  --color-heading: var(--heading);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-rain: var(--rain);
+  --color-hot: var(--hot);
+  --color-cold: var(--cold);
+  --color-brand: var(--brand);
+
+  --font-sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
 
   --breakpoint-xs: 480px;
 }
 
-@utility grid-cols-hourly {
-  grid-template-columns: repeat(8, minmax(10rem, 1fr));
-}
-
-@utility max-base {
-  @apply mx-auto my-0 max-w-3xl;
-}
-
 @layer base {
+  body {
+    @apply min-h-screen bg-canvas font-sans text-slate-700 antialiased dark:text-slate-300;
+  }
+
   li {
     list-style: none;
   }
 
-  body {
-    @apply min-h-screen bg-tertiary;
-  }
-
-  /* Tailwind v4 mudou o cursor padrão dos botões para "default" */
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-strong;
   }
 }

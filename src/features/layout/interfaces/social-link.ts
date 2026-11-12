@@ -1,7 +1,7 @@
-import type { ImageAsset } from '@/shared/interfaces/icon';
-
 export interface SocialLink {
   url: string;
-  icon: ImageAsset;
+  name: string;
+  icon: string;
   isExternal: boolean;
+  invertOnDark: boolean;
 }

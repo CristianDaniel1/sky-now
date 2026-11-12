@@ -1,28 +1,30 @@
 import { SelectedLocation } from '@/features/location';
 import { ErrorMessage } from '@/shared/components/ErrorMessage';
-import { LoadingMessage } from '@/shared/components/LoadingMessage';
 import { useCurrentWeather } from '../../hooks/useCurrentWeather';
 import { SectionTitle } from '../SectionTitle';
 import { CurrentConditions } from './CurrentConditions';
+import { TodaySkeleton } from './TodaySkeleton';
 
 export const Today = () => {
-  const { data: weather, isPending, isError, error } = useCurrentWeather();
+  const { data: weather, dataUpdatedAt, isPending, isError, error, refetch } = useCurrentWeather();
 
   return (
     <section className="my-4">
-      <div className="flex flex-wrap items-center justify-between pt-4">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 pt-4">
         <SectionTitle title="Tempo" subtitle="Hoje" className="py-3 sm:py-6" />
-        <SelectedLocation />
+        <SelectedLocation className="pb-4 text-2xl font-semibold text-balance text-primary sm:py-6" />
       </div>
-      <div className="min-h-96 gap-10 rounded-xl bg-secundary px-5 py-8 shadow-sm sm:p-10 md:flex">
-        {isPending && <LoadingMessage message="Carregando dados do tempo..." />}
+      <div className="rounded-xl bg-surface px-5 py-8 shadow-sm sm:p-10">
+        {isPending && <TodaySkeleton />}
         {isError && (
           <ErrorMessage
             title="Ops! Ocorreu um erro"
-            message={error.message || 'Erro ao carregar dados do clima'}
+            message={`Não foi possível carregar o clima. ${error.message}`}
+            onRetry={() => void refetch()}
+            className="m-auto"
           />
         )}
-        {weather && <CurrentConditions weather={weather} />}
+        {weather && <CurrentConditions weather={weather} updatedAt={dataUpdatedAt} />}
       </div>
     </section>
   );

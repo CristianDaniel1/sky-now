@@ -24,7 +24,7 @@ export const fetchCurrentWeather = ({ lat, lon, signal }: WeatherRequest) =>
     }),
     schema: currentWeatherSchema,
     signal,
-    errorMessage: 'Ocorreu um erro ao carregar os dados',
+    errorMessage: 'Verifique sua conexão e tente de novo.',
   });
 
 /**
@@ -43,5 +43,5 @@ export const fetchForecast = ({ lat, lon, signal }: WeatherRequest) =>
     }),
     schema: forecastSchema,
     signal,
-    errorMessage: 'Erro ao obter dados da previsão do tempo',
+    errorMessage: 'Verifique sua conexão e tente de novo.',
   });

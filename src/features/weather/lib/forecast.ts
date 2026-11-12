@@ -3,9 +3,12 @@ import type {
   DailyForecast,
   Forecast,
   ForecastSlot,
-  TemperaturePoint,
+  HourlyPoint,
+  TemperatureRange,
 } from '../interfaces/weather';
 import { formatHour, getPlaceDayKey, getPlaceHour } from './dates';
+
+const toPercentage = (probability: number) => Math.round(probability * 100);
 
 /**
  * Picks the forecast slots of the next 24 hours.
@@ -16,16 +19,46 @@ import { formatHour, getPlaceDayKey, getPlaceHour } from './dates';
 export const getNext24Hours = (slots: ForecastSlot[]) => slots.slice(0, FORECAST_SLOTS_PER_DAY);
 
 /**
- * Builds the temperature chart points of the next 24 hours.
+ * Builds the hourly timeline of the next 24 hours.
  *
  * @param forecast - Forecast of the place.
- * @returns The local time and temperature of each slot.
+ * @returns The local time, rounded temperature, rain chance and condition of each slot.
  */
-export const toTemperaturePoints = (forecast: Forecast): TemperaturePoint[] =>
-  getNext24Hours(forecast.list).map((slot) => ({
-    hour: formatHour(slot.dt, forecast.city.timezone),
-    temp: slot.main.temp,
-  }));
+export const toHourlyPoints = (forecast: Forecast): HourlyPoint[] =>
+  getNext24Hours(forecast.list).map((slot) => {
+    const [condition] = slot.weather;
+
+    return {
+      time: slot.dt,
+      hour: formatHour(slot.dt, forecast.city.timezone),
+      temp: Math.round(slot.main.temp),
+      rainChance: toPercentage(slot.pop),
+      icon: condition.icon,
+      description: condition.description,
+    };
+  });
+
+/**
+ * Finds the lowest and highest temperatures from now until 24 hours ahead.
+ *
+ * @param forecast - Forecast of the place.
+ * @param currentTemperature - Temperature right now, in degrees Celsius.
+ * @returns The rounded range of the next 24 hours.
+ */
+export const getNext24HoursRange = (
+  forecast: Forecast,
+  currentTemperature: number,
+): TemperatureRange => {
+  const temperatures = [
+    currentTemperature,
+    ...getNext24Hours(forecast.list).map((slot) => slot.main.temp),
+  ];
+
+  return {
+    min: Math.round(Math.min(...temperatures)),
+    max: Math.round(Math.max(...temperatures)),
+  };
+};
 
 const groupSlotsByDay = (slots: ForecastSlot[], timezoneOffset: number) => {
   const days = new Map<string, ForecastSlot[]>();
@@ -70,6 +103,7 @@ const summarizeDay = (
     slot: pickRepresentativeSlot([firstSlot, ...otherSlots], timezoneOffset),
     min: Math.min(...daySlots.map((slot) => slot.main.temp_min)),
     max: Math.max(...daySlots.map((slot) => slot.main.temp_max)),
+    rainChance: toPercentage(Math.max(...daySlots.map((slot) => slot.pop))),
   };
 };
 
