@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import type { z } from 'zod';
 import type { Coordinates } from '@/shared/interfaces/coordinates';
 import type { geoLocationSchema } from '../api/schemas';
@@ -10,8 +11,34 @@ export interface LocationLabel {
   country: string;
 }
 
-export interface LocationState {
+export interface Place {
   coords: Coordinates;
   label: LocationLabel;
-  selectLocation: (coords: Coordinates, label: LocationLabel) => void;
+}
+
+export interface LocationState extends Place {
+  selectLocation: (place: Place) => void;
+}
+
+export interface SavedPlacesState {
+  favorites: Place[];
+  recents: Place[];
+  toggleFavorite: (place: Place) => void;
+  addRecent: (place: Place) => void;
+}
+
+export type PlaceGroupKind = 'favorites' | 'recents' | 'results';
+
+export interface PlaceGroupInput {
+  kind: PlaceGroupKind;
+  places: Place[];
+}
+
+export interface PlaceGroup extends PlaceGroupInput {
+  startIndex: number;
+}
+
+export interface PlaceGroupDetails {
+  title: string | null;
+  icon: LucideIcon | null;
 }

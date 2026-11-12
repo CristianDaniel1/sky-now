@@ -1,4 +1,4 @@
-import { SelectedLocation } from '@/features/location';
+import { FavoriteButton, SelectedLocation } from '@/features/location';
 import { ErrorMessage } from '@/shared/components/ErrorMessage';
 import { useCurrentWeather } from '../../hooks/useCurrentWeather';
 import { SectionTitle } from '../SectionTitle';
@@ -12,7 +12,10 @@ export const Today = () => {
     <section className="my-4">
       <div className="flex flex-wrap items-center justify-between gap-x-6 pt-4">
         <SectionTitle title="Tempo" subtitle="Hoje" className="py-3 sm:py-6" />
-        <SelectedLocation className="pb-4 text-2xl font-semibold text-balance text-primary sm:py-6" />
+        <div className="flex items-center gap-1 pb-4 sm:py-6">
+          <SelectedLocation className="text-2xl font-semibold text-balance text-primary" />
+          <FavoriteButton />
+        </div>
       </div>
       <div className="rounded-xl bg-surface px-5 py-8 shadow-sm sm:p-10">
         {isPending && <TodaySkeleton />}

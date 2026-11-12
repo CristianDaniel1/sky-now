@@ -1,15 +1,15 @@
 import { useState, type KeyboardEvent } from 'react';
 import { SUGGESTION_KEY_STEPS } from '../data/suggestion-keys';
-import type { GeoLocation } from '../interfaces/location';
+import type { Place } from '../interfaces/location';
 import { getNextSuggestionIndex } from '../lib/suggestions';
 
 /**
  * Controls the open state and the keyboard highlight of the search suggestions.
  *
- * @param locations - Suggestions currently listed.
+ * @param places - Suggestions currently listed, in display order.
  * @returns Whether the list is open, the highlighted suggestion and the handlers of the input.
  */
-export const useSuggestionNavigation = (locations: GeoLocation[]) => {
+export const useSuggestionNavigation = (places: Place[]) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -30,17 +30,17 @@ export const useSuggestionNavigation = (locations: GeoLocation[]) => {
     }
 
     const step = SUGGESTION_KEY_STEPS[event.key];
-    if (!step || !locations.length) return;
+    if (!step || !places.length) return;
 
     event.preventDefault();
     setIsOpen(true);
-    setActiveIndex((current) => getNextSuggestionIndex(current, step, locations.length));
+    setActiveIndex((current) => getNextSuggestionIndex(current, step, places.length));
   };
 
   return {
     isOpen,
     activeIndex,
-    activeLocation: locations[activeIndex],
+    activePlace: places[activeIndex],
     open,
     close,
     handleKeyDown,

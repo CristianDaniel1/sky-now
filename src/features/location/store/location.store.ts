@@ -14,7 +14,7 @@ export const useLocationStore = create<LocationState>()(
     (set) => ({
       coords: DEFAULT_COORDS,
       label: DEFAULT_LOCATION_LABEL,
-      selectLocation: (coords, label) => set({ coords, label }),
+      selectLocation: ({ coords, label }) => set({ coords, label }),
     }),
     {
       name: LOCATION_STORAGE_KEY,

@@ -1,23 +1,29 @@
 import { SEARCH_POPOVER_CLASSES } from '../constants/styles';
-import type { GeoLocation } from '../interfaces/location';
-import { getSuggestionId } from '../lib/suggestions';
-import { SuggestionItem } from './SuggestionItem';
+import type { Place, PlaceGroup } from '../interfaces/location';
+import { SuggestionGroup } from './SuggestionGroup';
 
 interface SuggestionsListProps {
   id: string;
-  locations: GeoLocation[];
+  label: string;
+  groups: PlaceGroup[];
   activeIndex: number;
-  onSelect: (location: GeoLocation) => void;
+  onSelect: (place: Place) => void;
 }
 
-export const SuggestionsList = ({ id, locations, activeIndex, onSelect }: SuggestionsListProps) => (
-  <ul id={id} role="listbox" aria-label="Locais encontrados" className={SEARCH_POPOVER_CLASSES}>
-    {locations.map((location, index) => (
-      <SuggestionItem
-        key={`${location.lat},${location.lon}`}
-        id={getSuggestionId(id, index)}
-        location={location}
-        isActive={index === activeIndex}
+export const SuggestionsList = ({
+  id,
+  label,
+  groups,
+  activeIndex,
+  onSelect,
+}: SuggestionsListProps) => (
+  <ul id={id} role="listbox" aria-label={label} className={SEARCH_POPOVER_CLASSES}>
+    {groups.map((group) => (
+      <SuggestionGroup
+        key={group.kind}
+        listId={id}
+        group={group}
+        activeIndex={activeIndex}
         onSelect={onSelect}
       />
     ))}

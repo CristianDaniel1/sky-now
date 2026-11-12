@@ -27,3 +27,15 @@ export const GEOLOCATION_TIMEOUT_MS = 10_000;
 
 /** Age of a cached browser position that can still be reused, in milliseconds. */
 export const GEOLOCATION_MAX_AGE_MS = 5 * 60 * 1000;
+
+/** `localStorage` key of the favorite and recently selected places. */
+export const SAVED_PLACES_STORAGE_KEY = 'sky-now:places';
+
+/** Maximum number of favorite places. */
+export const MAX_FAVORITE_PLACES = 8;
+
+/** Maximum number of recently selected places kept. */
+export const MAX_RECENT_PLACES = 5;
+
+/** Decimal digits of the coordinates compared to tell whether two places are the same. */
+export const PLACE_KEY_PRECISION = 2;

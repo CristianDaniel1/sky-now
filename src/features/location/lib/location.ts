@@ -1,4 +1,4 @@
-import type { GeoLocation, LocationLabel } from '../interfaces/location';
+import type { GeoLocation, LocationLabel, Place } from '../interfaces/location';
 
 /**
  * Formats a place as "city, state, country", skipping empty parts.
@@ -22,11 +22,22 @@ export const toLocationLabel = (location: GeoLocation): LocationLabel => ({
 });
 
 /**
- * Finds the place whose name is exactly the search term, ignoring case.
+ * Converts a geocoding result into a selectable place.
  *
- * @param locations - Places returned by the search.
+ * @param location - Place returned by the geocoding API.
+ * @returns The place with its coordinates and label.
+ */
+export const toPlace = (location: GeoLocation): Place => ({
+  coords: { lat: location.lat, lon: location.lon },
+  label: toLocationLabel(location),
+});
+
+/**
+ * Finds the place whose city is exactly the search term, ignoring case.
+ *
+ * @param places - Places returned by the search.
  * @param searchTerm - Text typed by the user.
  * @returns The matching place, if any.
  */
-export const findExactMatch = (locations: GeoLocation[], searchTerm: string) =>
-  locations.find((location) => location.name.toLowerCase() === searchTerm.toLowerCase());
+export const findExactMatch = (places: Place[], searchTerm: string) =>
+  places.find((place) => place.label.city.toLowerCase() === searchTerm.toLowerCase());

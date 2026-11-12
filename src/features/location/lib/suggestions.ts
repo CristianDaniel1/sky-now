@@ -1,3 +1,6 @@
+import type { Place, PlaceGroup, PlaceGroupInput } from '../interfaces/location';
+import { hasPlace } from './places';
+
 /**
  * Moves the highlighted suggestion, wrapping around the ends of the list.
  *
@@ -19,3 +22,34 @@ export const getNextSuggestionIndex = (currentIndex: number, step: number, count
  * @returns The suggestion id.
  */
 export const getSuggestionId = (listId: string, index: number) => `${listId}-option-${index}`;
+
+/**
+ * Adds to each group the position of its first place in the whole suggestions list.
+ *
+ * @param groups - Groups in display order.
+ * @returns The groups with their start position.
+ */
+export const indexPlaceGroups = (groups: PlaceGroupInput[]): PlaceGroup[] => {
+  let startIndex = 0;
+
+  return groups.map((group) => {
+    const indexedGroup = { ...group, startIndex };
+    startIndex += group.places.length;
+    return indexedGroup;
+  });
+};
+
+/**
+ * Builds the groups shown before typing: favorites, then recent places that are not favorites.
+ *
+ * @param favorites - Favorite places.
+ * @param recents - Recently selected places, newest first.
+ * @returns The non-empty groups.
+ */
+export const buildSavedPlaceGroups = (favorites: Place[], recents: Place[]) => {
+  const groups: PlaceGroupInput[] = [
+    { kind: 'favorites', places: favorites },
+    { kind: 'recents', places: recents.filter((recent) => !hasPlace(favorites, recent.coords)) },
+  ];
+  return indexPlaceGroups(groups.filter((group) => !!group.places.length));
+};

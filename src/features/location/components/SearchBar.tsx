@@ -1,48 +1,61 @@
 import { Search } from 'lucide-react';
 import { useId, useState, type ChangeEvent, type FormEvent } from 'react';
-import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue';
-import { LOCATION_SEARCH_DEBOUNCE_MS } from '../constants/location';
 import { SEARCH_POPOVER_CLASSES, SEARCH_STATUS_CLASSES } from '../constants/styles';
-import { useLocationSearch } from '../hooks/useLocationSearch';
+import { usePlaceSuggestions } from '../hooks/usePlaceSuggestions';
 import { useSuggestionNavigation } from '../hooks/useSuggestionNavigation';
-import type { GeoLocation } from '../interfaces/location';
-import { findExactMatch, toLocationLabel } from '../lib/location';
+import type { Place } from '../interfaces/location';
+import { findExactMatch } from '../lib/location';
 import { getSuggestionId } from '../lib/suggestions';
 import { useLocationStore } from '../store/location.store';
+import { useSavedPlacesStore } from '../store/saved-places.store';
 import { SuggestionsList } from './SuggestionsList';
 
 export const SearchBar = () => {
   const listId = useId();
   const [query, setQuery] = useState('');
-  const trimmedQuery = query.trim();
-  const searchTerm = useDebouncedValue(trimmedQuery, LOCATION_SEARCH_DEBOUNCE_MS);
   const selectLocation = useLocationStore((store) => store.selectLocation);
-  const { data: locations = [], isFetching, isError, error } = useLocationSearch(searchTerm);
-  const { isOpen, activeIndex, activeLocation, open, close, handleKeyDown } =
-    useSuggestionNavigation(locations);
+  const addRecent = useSavedPlacesStore((store) => store.addRecent);
+  const {
+    searchTerm,
+    isShowingSaved,
+    isSearchSettled,
+    groups,
+    places,
+    isFetching,
+    isError,
+    error,
+  } = usePlaceSuggestions(query);
+  const { isOpen, activeIndex, activePlace, open, close, handleKeyDown } =
+    useSuggestionNavigation(places);
 
-  const isSearchSettled = !!trimmedQuery && searchTerm === trimmedQuery;
-  const showPanel = isOpen && isSearchSettled;
-  const hasSuggestions = showPanel && !isFetching && !!locations.length;
-  const hasNoResults = showPanel && !isFetching && !isError && !locations.length;
+  const showSearchPanel = isOpen && isSearchSettled;
+  const canListPlaces = isShowingSaved ? isOpen : showSearchPanel && !isFetching;
+  const hasSuggestions = canListPlaces && !!places.length;
+  const hasNoResults = showSearchPanel && !isFetching && !isError && !places.length;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
     open();
   };
 
-  const handleSelect = (location: GeoLocation) => {
-    selectLocation({ lat: location.lat, lon: location.lon }, toLocationLabel(location));
+  const handleSelect = (place: Place) => {
+    selectLocation(place);
+    addRecent(place);
     setQuery('');
     close();
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const highlightedPlace = hasSuggestions ? activePlace : undefined;
+    if (highlightedPlace) {
+      handleSelect(highlightedPlace);
+      return;
+    }
     if (!isSearchSettled) return;
 
-    const location = activeLocation ?? findExactMatch(locations, searchTerm) ?? locations[0];
-    if (location) handleSelect(location);
+    const place = findExactMatch(places, searchTerm) ?? places[0];
+    if (place) handleSelect(place);
   };
 
   return (
@@ -73,15 +86,15 @@ export const SearchBar = () => {
         onKeyDown={handleKeyDown}
         className="block h-11 w-full rounded-full border border-transparent bg-slate-100 pr-4 pl-10 text-sky-800 transition-colors placeholder:text-sky-800/60 hover:border-line focus:bg-surface dark:bg-subtle dark:text-sky-100 dark:placeholder:text-sky-100/60"
       />
-      {showPanel && isFetching && (
+      {showSearchPanel && isFetching && (
         <div role="status" className={SEARCH_POPOVER_CLASSES}>
           <p className={SEARCH_STATUS_CLASSES}>Buscando…</p>
         </div>
       )}
-      {showPanel && isError && (
+      {showSearchPanel && isError && (
         <div className={SEARCH_POPOVER_CLASSES}>
           <p role="alert" className={SEARCH_STATUS_CLASSES}>
-            {error.message || 'Não foi possível buscar agora. Tente de novo.'}
+            {error?.message || 'Não foi possível buscar agora. Tente de novo.'}
           </p>
         </div>
       )}
@@ -93,7 +106,8 @@ export const SearchBar = () => {
       {hasSuggestions && (
         <SuggestionsList
           id={listId}
-          locations={locations}
+          label={isShowingSaved ? 'Locais salvos' : 'Locais encontrados'}
+          groups={groups}
           activeIndex={activeIndex}
           onSelect={handleSelect}
         />

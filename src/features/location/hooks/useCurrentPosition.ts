@@ -53,7 +53,7 @@ export const useCurrentPosition = () => {
       });
       const coords = { lat: position.coords.latitude, lon: position.coords.longitude };
       const label = await findPlaceLabel(coords);
-      selectLocation(coords, label);
+      selectLocation({ coords, label });
     } catch (error) {
       reportError('location: get current position', error);
       const message =
