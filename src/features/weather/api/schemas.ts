@@ -60,3 +60,13 @@ export const forecastSchema = z.object({
     sunset: z.number(),
   }),
 });
+
+const airPollutionEntrySchema = z.object({
+  dt: z.number(),
+  main: z.object({ aqi: z.number().int() }),
+});
+
+/** Schema of the OpenWeatherMap air pollution response. */
+export const airPollutionSchema = z.object({
+  list: z.tuple([airPollutionEntrySchema], airPollutionEntrySchema),
+});

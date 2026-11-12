@@ -37,7 +37,7 @@ export default defineConfig([
     rules: { 'local/one-component-per-file': 'error' },
   },
   {
-    files: ['*.config.{js,ts}', 'eslint/**/*.js'],
+    files: ['*.config.{js,ts}', 'eslint/**/*.js', 'api/**/*.ts', 'vite-plugins/**/*.ts'],
     languageOptions: { globals: globals.node },
   },
   prettier,

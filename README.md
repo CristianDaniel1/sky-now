@@ -38,10 +38,15 @@ SkyNow é um aplicativo que fornece informações detalhadas sobre o clima e a p
   - Current Weather API: Para obter as condições climáticas atuais.
   - 5 Day / 3 Hour Forecast API: Para previsões detalhadas.
   - Geocoding API: Para converter nomes de localizações em coordenadas geográficas.
+  - Air Pollution API: Para mostrar a qualidade do ar.
+
+As chamadas passam pela função serverless `api/openweather.ts`, que adiciona a chave da API no servidor. Assim, a chave não aparece no código enviado ao navegador.
 
 ## Deploy
 
 O projeto está disponível em: [SkyNow](https://sky-now.vercel.app/)
+
+Na Vercel, cadastre a variável de ambiente `OPENWEATHER_API_KEY` em **Settings → Environment Variables**.
 
 ## Instalação Local
 
@@ -65,13 +70,15 @@ Para instalar e rodar o projeto localmente, siga os passos abaixo:
    npm install
    ```
 
-4. Rode o projeto:
+4. Crie o arquivo `.env.local` a partir do `.env.example` e preencha `OPENWEATHER_API_KEY` com a sua chave da [OpenWeatherMap](https://home.openweathermap.org/api_keys).
+
+5. Rode o projeto:
 
    ```bash
    npm run dev
    ```
 
-5. Abra o navegador e acesse:
+6. Abra o navegador e acesse:
    ```bash
    http://localhost:5173
    ```

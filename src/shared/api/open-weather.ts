@@ -1,17 +1,21 @@
-import { OPEN_WEATHER_BASE_URL } from '@/shared/constants/api';
+import { OPEN_WEATHER_PROXY_PATH } from '@/shared/constants/api';
+import type { OpenWeatherEndpoint } from '@/shared/interfaces/open-weather';
 
 /**
- * Builds an OpenWeatherMap URL with the API key and encoded query parameters.
+ * Builds the URL of an OpenWeatherMap request sent through the app's server proxy.
  *
- * @param path - Endpoint path, e.g. `/data/2.5/weather`.
+ * @param endpoint - OpenWeatherMap endpoint allowed by the proxy, e.g. `weather`.
  * @param params - Query parameters of the request.
  * @returns The full request URL.
  */
-export const buildOpenWeatherUrl = (path: string, params: Record<string, string | number>) => {
-  const url = new URL(path, OPEN_WEATHER_BASE_URL);
+export const buildOpenWeatherUrl = (
+  endpoint: OpenWeatherEndpoint,
+  params: Record<string, string | number>,
+) => {
+  const url = new URL(OPEN_WEATHER_PROXY_PATH, window.location.origin);
 
+  url.searchParams.set('endpoint', endpoint);
   for (const [name, value] of Object.entries(params)) url.searchParams.set(name, String(value));
-  url.searchParams.set('appid', import.meta.env.VITE_API_KEY);
 
   return url;
 };

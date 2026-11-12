@@ -8,9 +8,10 @@
     "moduleResolution": "bundler",
     "types": ["node"],
     "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "vite-plugins", "api"]
 }

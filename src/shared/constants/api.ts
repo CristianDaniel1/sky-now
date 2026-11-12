@@ -1,5 +1,5 @@
-/** Base URL of the OpenWeatherMap APIs. */
-export const OPEN_WEATHER_BASE_URL = 'https://api.openweathermap.org';
+/** Path of the server function that calls OpenWeatherMap with the API key. */
+export const OPEN_WEATHER_PROXY_PATH = '/api/openweather';
 
 /** Unit system requested from OpenWeatherMap (Celsius, meters per second). */
 export const OPEN_WEATHER_UNITS = 'metric';

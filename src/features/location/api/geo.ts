@@ -21,7 +21,7 @@ interface SearchLocationsInput {
  */
 export const searchLocations = ({ query, signal }: SearchLocationsInput) =>
   fetchJson({
-    url: buildOpenWeatherUrl('/geo/1.0/direct', { q: query, limit: GEO_SEARCH_LIMIT }),
+    url: buildOpenWeatherUrl('geo-direct', { q: query, limit: GEO_SEARCH_LIMIT }),
     schema: geoLocationsSchema,
     signal,
     errorMessage: 'Erro ao procurar local, tente mais tarde.',
@@ -35,7 +35,7 @@ export const searchLocations = ({ query, signal }: SearchLocationsInput) =>
  */
 export const reverseGeocode = ({ lat, lon, signal }: ReverseGeocodeInput) =>
   fetchJson({
-    url: buildOpenWeatherUrl('/geo/1.0/reverse', { lat, lon, limit: 1 }),
+    url: buildOpenWeatherUrl('geo-reverse', { lat, lon, limit: 1 }),
     schema: geoLocationsSchema,
     signal,
     errorMessage: 'Erro ao identificar o local atual.',

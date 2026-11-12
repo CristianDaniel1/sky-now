@@ -11,6 +11,7 @@ import { formatHour } from '../../lib/dates';
 import { getCompassPoint } from '../../lib/format';
 import { DetailImage } from '../details/DetailImage';
 import { DetailTile } from '../details/DetailTile';
+import { AirQuality } from './AirQuality';
 
 interface TodayDetailsProps {
   weather: CurrentWeather;
@@ -63,6 +64,7 @@ export const TodayDetails = ({ weather, rainChance }: TodayDetailsProps) => {
         label="Pôr do sol"
         value={formatHour(sys.sunset, timezone)}
       />
+      <AirQuality />
     </dl>
   );
 };

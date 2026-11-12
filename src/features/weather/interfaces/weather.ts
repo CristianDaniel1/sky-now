@@ -1,7 +1,12 @@
 import type { LucideIcon } from 'lucide-react';
 import type { z } from 'zod';
 import type { UnitSystem } from '@/features/units';
-import type { currentWeatherSchema, forecastSchema, forecastSlotSchema } from '../api/schemas';
+import type {
+  airPollutionSchema,
+  currentWeatherSchema,
+  forecastSchema,
+  forecastSlotSchema,
+} from '../api/schemas';
 
 export type CurrentWeather = z.infer<typeof currentWeatherSchema>;
 
@@ -55,4 +60,12 @@ export interface DaySummaryContext extends Omit<DaySummaryInput, 'points'> {
 export interface DaySummaryStyle {
   icon: LucideIcon;
   className: string;
+}
+
+export type AirPollution = z.infer<typeof airPollutionSchema>;
+
+export interface AirQualityLevel {
+  label: string;
+  hint: string;
+  colorClassName: string;
 }
